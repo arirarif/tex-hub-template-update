@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shop — Tex-Hub Textil Großhandel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    img  { display:block; max-width:100%; }
+    a    { text-decoration:none; color:inherit; }
+    button { font-family:inherit; cursor:pointer; border:none; background:none; }
+    ul   { list-style:none; }
+
+    /* ── TOKENS (biscuit/warm palette) ── */
+    :root {
+      --bg:        #f5f0e8;
+      --surface:   #faf7f2;
+      --surface-2: #ffffff;
+      --border:    rgba(80,60,20,0.12);
+      --border-2:  rgba(80,60,20,0.22);
+      --accent:    #2a6e4e;
+      --accent-lt: #3a8f65;
+      --accent-dim:rgba(42,110,78,0.10);
+      --gold:      #c8860a;
+      --text:      #1c1a16;
+      --text-2:    #5a5040;
+      --text-3:    #9a8e78;
+      --shadow-sm: 0 2px 8px rgba(80,60,20,0.08);
+      --shadow-md: 0 8px 24px rgba(80,60,20,0.12);
+      --r-sm:8px; --r:12px; --r-lg:20px; --r-pill:100px;
+      --sp-4:4px;--sp-8:8px;--sp-12:12px;--sp-16:16px;
+      --sp-24:24px;--sp-32:32px;--sp-48:48px;--sp-64:64px;
+    }
+
+    body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+
+    /* ── NAV ── */
+    .announcement { background:var(--accent); color:#fff; text-align:center; padding:var(--sp-8) var(--sp-16); font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; letter-spacing:0.04em; }
+    .nav { position:sticky; top:0; z-index:100; background:rgba(245,240,232,0.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); transition:box-shadow 0.3s; }
+    .nav.scrolled { box-shadow:var(--shadow-md); }
+    .nav-inner { display:flex; align-items:center; gap:var(--sp-32); height:68px; max-width:1280px; margin:0 auto; padding:0 var(--sp-32); }
+    .nav-logo { font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; letter-spacing:-0.02em; }
+    .nav-logo span { color:var(--accent); }
+    .nav-links { display:flex; align-items:center; gap:var(--sp-4); flex:1; }
+    .nav-links a { font-size:14px; font-weight:500; color:var(--text-2); padding:var(--sp-8) var(--sp-12); border-radius:var(--r-sm); transition:color 0.2s,background 0.2s; }
+    .nav-links a:hover,.nav-links a.active { color:var(--text); background:var(--accent-dim); }
+    .nav-links a.active { color:var(--accent); font-weight:600; }
+    .nav-badge { font-size:10px; font-weight:700; background:var(--gold); color:#fff; padding:2px 7px; border-radius:var(--r-pill); margin-left:var(--sp-4); }
+    .nav-right { display:flex; align-items:center; gap:var(--sp-12); flex-shrink:0; }
+    .btn-outline { font-size:13px; font-weight:600; color:var(--text-2); padding:8px 18px; border:1px solid var(--border-2); border-radius:var(--r-pill); transition:all 0.2s; }
+    .btn-outline:hover { color:var(--accent); border-color:var(--accent); }
+    .btn-primary { font-size:13px; font-weight:700; color:#fff; background:var(--accent); padding:9px 20px; border-radius:var(--r-pill); transition:opacity 0.2s,transform 0.2s; }
+    .btn-primary:hover { opacity:0.88; transform:translateY(-1px); }
+    @media(max-width:768px){ .nav-links,.btn-outline{display:none;} .nav-inner{padding:0 var(--sp-16);} }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb { max-width:1280px; margin:0 auto; padding:var(--sp-16) var(--sp-32); display:flex; align-items:center; gap:var(--sp-8); font-size:13px; color:var(--text-3); }
+    .breadcrumb a { color:var(--text-3); transition:color 0.2s; }
+    .breadcrumb a:hover { color:var(--accent); }
+    .breadcrumb span { color:var(--text-2); font-weight:500; }
+    @media(max-width:768px){ .breadcrumb{padding:var(--sp-12) var(--sp-16);} }
+
+    /* ── SHOP LAYOUT ── */
+    .shop-wrap { max-width:1280px; margin:0 auto; padding:0 var(--sp-32) var(--sp-96); display:grid; grid-template-columns:260px 1fr; gap:var(--sp-32); }
+    @media(max-width:960px){ .shop-wrap{grid-template-columns:1fr; padding:0 var(--sp-16) var(--sp-64);} }
+
+    /* ── SIDEBAR FILTERS ── */
+    .sidebar { position:sticky; top:84px; align-self:start; }
+    @media(max-width:960px){ .sidebar{position:static;} }
+
+    .filter-block { background:var(--surface-2); border:1px solid var(--border); border-radius:var(--r-lg); padding:var(--sp-24); margin-bottom:var(--sp-16); }
+    .filter-title { font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-2); margin-bottom:var(--sp-16); display:flex; align-items:center; justify-content:space-between; cursor:pointer; }
+    .filter-title svg { color:var(--text-3); transition:transform 0.2s; }
+    .filter-title.open svg { transform:rotate(180deg); }
+
+    /* Category filter */
+    .filter-cats { display:flex; flex-direction:column; gap:var(--sp-4); }
+    .filter-cat { display:flex; align-items:center; justify-content:space-between; padding:6px var(--sp-8); border-radius:var(--r-sm); cursor:pointer; transition:background 0.15s; }
+    .filter-cat:hover { background:var(--accent-dim); }
+    .filter-cat.active { background:var(--accent-dim); color:var(--accent); font-weight:600; }
+    .filter-cat-label { font-size:14px; }
+    .filter-cat-count { font-size:12px; color:var(--text-3); }
+
+    /* Color swatches */
+    .filter-colors { display:flex; flex-wrap:wrap; gap:var(--sp-8); }
+    .color-swatch { width:28px; height:28px; border-radius:50%; border:2px solid transparent; cursor:pointer; transition:transform 0.15s; }
+    .color-swatch:hover { transform:scale(1.15); }
+    .color-swatch.active { border-color:var(--accent); outline:2px solid var(--accent); outline-offset:2px; }
+
+    /* Size filter */
+    .filter-sizes { display:flex; flex-wrap:wrap; gap:var(--sp-8); }
+    .size-btn { min-width:36px; height:36px; padding:0 10px; border:1px solid var(--border-2); border-radius:var(--r-sm); font-size:13px; font-weight:600; color:var(--text-2); cursor:pointer; transition:all 0.15s; }
+    .size-btn:hover,.size-btn.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+
+    /* Price range */
+    .price-range { display:flex; align-items:center; gap:var(--sp-12); }
+    .price-input { width:80px; padding:8px 10px; border:1px solid var(--border-2); border-radius:var(--r-sm); font-size:13px; font-family:inherit; background:var(--surface); color:var(--text); }
+
+    /* Brand checkboxes */
+    .filter-checks { display:flex; flex-direction:column; gap:var(--sp-8); }
+    .filter-check { display:flex; align-items:center; gap:var(--sp-10,10px); font-size:14px; cursor:pointer; }
+    .filter-check input { accent-color:var(--accent); width:16px; height:16px; }
+
+    /* Clear / Apply */
+    .filter-actions { display:flex; gap:var(--sp-8); margin-top:var(--sp-16); }
+    .filter-actions button { flex:1; padding:10px; border-radius:var(--r-sm); font-size:13px; font-weight:600; cursor:pointer; border:1px solid var(--border-2); transition:all 0.2s; }
+    .filter-apply { background:var(--accent); color:#fff; border-color:var(--accent)!important; }
+    .filter-apply:hover { opacity:0.88; }
+    .filter-clear { background:transparent; color:var(--text-2); }
+    .filter-clear:hover { border-color:var(--text-2); color:var(--text); }
+
+    /* ── MAIN CONTENT ── */
+    .shop-main {}
+    .shop-topbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--sp-24); gap:var(--sp-16); flex-wrap:wrap; }
+    .shop-count { font-size:14px; color:var(--text-2); }
+    .shop-count strong { color:var(--text); }
+
+    .sort-select { padding:9px var(--sp-16); border:1px solid var(--border-2); border-radius:var(--r-sm); font-size:13px; font-family:inherit; background:var(--surface-2); color:var(--text); cursor:pointer; }
+
+    .active-filters { display:flex; flex-wrap:wrap; gap:var(--sp-8); margin-bottom:var(--sp-24); }
+    .active-tag { display:inline-flex; align-items:center; gap:var(--sp-4); font-size:12px; font-weight:600; color:var(--accent); background:var(--accent-dim); border:1px solid rgba(42,110,78,0.2); padding:4px 12px; border-radius:var(--r-pill); }
+    .active-tag button { color:var(--accent); font-size:14px; line-height:1; }
+
+    /* ── PRODUCT GRID ── */
+    .products-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:var(--sp-16); }
+    @media(max-width:1100px){ .products-grid{grid-template-columns:repeat(2,1fr);} }
+    @media(max-width:500px){ .products-grid{grid-template-columns:1fr;} }
+
+    .prod-card { background:var(--surface-2); border:1px solid var(--border); border-radius:var(--r-lg); overflow:hidden; cursor:pointer; transition:transform 0.25s,box-shadow 0.25s,border-color 0.2s; }
+    .prod-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-md); border-color:var(--border-2); }
+    .prod-img { aspect-ratio:3/4; background:var(--bg); position:relative; overflow:hidden; }
+    .prod-img img { width:100%; height:100%; object-fit:cover; transition:transform 0.4s; }
+    .prod-card:hover .prod-img img { transform:scale(1.05); }
+    .prod-badge { position:absolute; top:var(--sp-12); left:var(--sp-12); font-size:11px; font-weight:700; padding:3px 10px; border-radius:var(--r-pill); letter-spacing:0.05em; text-transform:uppercase; }
+    .badge-new  { background:var(--accent); color:#fff; }
+    .badge-sale { background:var(--gold); color:#fff; }
+    .badge-top  { background:rgba(28,26,22,0.7); color:#fff; backdrop-filter:blur(4px); }
+    .prod-info { padding:var(--sp-16); }
+    .prod-brand { font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-3); margin-bottom:var(--sp-4); }
+    .prod-name { font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:var(--text); margin-bottom:var(--sp-8); line-height:1.3; }
+    .prod-meta { display:flex; align-items:center; justify-content:space-between; gap:var(--sp-8); }
+    .prod-price { font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:700; color:var(--text); }
+    .prod-price-old { font-size:12px; color:var(--text-3); text-decoration:line-through; }
+    .prod-colors { display:flex; gap:var(--sp-4); }
+    .prod-color-dot { width:12px; height:12px; border-radius:50%; border:1px solid rgba(0,0,0,0.1); }
+    .prod-more-colors { font-size:11px; color:var(--text-3); }
+    .prod-actions { display:flex; gap:var(--sp-8); padding:0 var(--sp-16) var(--sp-16); }
+    .prod-btn-cart { flex:1; padding:10px; background:var(--accent); color:#fff; border-radius:var(--r-sm); font-size:13px; font-weight:700; cursor:pointer; transition:opacity 0.2s; }
+    .prod-btn-cart:hover { opacity:0.88; }
+    .prod-btn-wish { width:40px; height:40px; border:1px solid var(--border-2); border-radius:var(--r-sm); display:flex; align-items:center; justify-content:center; color:var(--text-3); cursor:pointer; transition:color 0.2s,border-color 0.2s; flex-shrink:0; }
+    .prod-btn-wish:hover { color:var(--gold); border-color:var(--gold); }
+
+    /* ── PAGINATION ── */
+    .pagination { display:flex; align-items:center; justify-content:center; gap:var(--sp-8); margin-top:var(--sp-48); }
+    .page-btn { width:40px; height:40px; border:1px solid var(--border-2); border-radius:var(--r-sm); display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; color:var(--text-2); cursor:pointer; transition:all 0.2s; }
+    .page-btn:hover,.page-btn.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+    .page-btn.active { pointer-events:none; }
+
+    /* ── FOOTER (slim) ── */
+    .footer-slim { background:var(--surface-2); border-top:1px solid var(--border); padding:var(--sp-32); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--sp-16); max-width:100%; }
+    .footer-slim-logo { font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:700; }
+    .footer-slim-logo span { color:var(--accent); }
+    .footer-slim-links { display:flex; gap:var(--sp-24); flex-wrap:wrap; }
+    .footer-slim-links a { font-size:13px; color:var(--text-3); transition:color 0.2s; }
+    .footer-slim-links a:hover { color:var(--text); }
+    .footer-slim-copy { font-size:12px; color:var(--text-3); }
+  </style>
+</head>
+<body>
+
+  <div class="announcement">Händlerkonto erstellen &amp; 10% auf die erste Bestellung sichern →</div>
+
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">tex<span>-hub</span></a>
+      <div class="nav-links">
+        <a href="shop.html" class="active">Kategorien</a>
+        <a href="shop.html">Marken</a>
+        <a href="shop.html">Angebote <span class="nav-badge">SALE</span></a>
+        <a href="shop.html">Teamwear</a>
+        <a href="shop.html">Workwear</a>
+      </div>
+      <div class="nav-right">
+        <a href="haendler.html" class="btn-outline">Händler-Login</a>
+        <a href="haendler.html" class="btn-primary">Konto erstellen</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb">
+    <a href="index.html">Startseite</a>
+    <span>/</span>
+    <span>T-Shirts &amp; Poloshirts</span>
+  </div>
+
+  <div class="shop-wrap">
+
+    <!-- SIDEBAR FILTERS -->
+    <aside class="sidebar">
+      <div class="filter-block">
+        <div class="filter-title open" onclick="this.classList.toggle('open')">
+          Kategorie
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="filter-cats">
+          <div class="filter-cat active"><span class="filter-cat-label">T-Shirts</span><span class="filter-cat-count">1.240</span></div>
+          <div class="filter-cat"><span class="filter-cat-label">Poloshirts</span><span class="filter-cat-count">820</span></div>
+          <div class="filter-cat"><span class="filter-cat-label">Workwear</span><span class="filter-cat-count">640</span></div>
+          <div class="filter-cat"><span class="filter-cat-label">Sweatshirts</span><span class="filter-cat-count">510</span></div>
+          <div class="filter-cat"><span class="filter-cat-label">Jacken &amp; Westen</span><span class="filter-cat-count">390</span></div>
+          <div class="filter-cat"><span class="filter-cat-label">Sportswear</span><span class="filter-cat-count">720</span></div>
+          <div class="filter-cat"><span class="filter-cat-label">Caps &amp; Mützen</span><span class="filter-cat-count">290</span></div>
+        </div>
+      </div>
+
+      <div class="filter-block">
+        <div class="filter-title open">
+          Farbe
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="filter-colors">
+          <span class="color-swatch active" title="Schwarz" style="background:#1a1a1a"></span>
+          <span class="color-swatch" title="Weiß" style="background:#f0f0f0;border:1px solid #ddd"></span>
+          <span class="color-swatch" title="Navy" style="background:#1a2a4a"></span>
+          <span class="color-swatch" title="Grau" style="background:#888"></span>
+          <span class="color-swatch" title="Rot" style="background:#c0392b"></span>
+          <span class="color-swatch" title="Grün" style="background:#2a6e4e"></span>
+          <span class="color-swatch" title="Blau" style="background:#2563eb"></span>
+          <span class="color-swatch" title="Gelb" style="background:#f59e0b"></span>
+          <span class="color-swatch" title="Bordeaux" style="background:#7b2040"></span>
+          <span class="color-swatch" title="Orange" style="background:#e85c20"></span>
+        </div>
+      </div>
+
+      <div class="filter-block">
+        <div class="filter-title open">
+          Größe
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="filter-sizes">
+          <button class="size-btn">XS</button>
+          <button class="size-btn active">S</button>
+          <button class="size-btn active">M</button>
+          <button class="size-btn">L</button>
+          <button class="size-btn">XL</button>
+          <button class="size-btn">2XL</button>
+          <button class="size-btn">3XL</button>
+          <button class="size-btn">4XL</button>
+        </div>
+      </div>
+
+      <div class="filter-block">
+        <div class="filter-title open">
+          Preis (€/Stück ab)
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="price-range">
+          <input class="price-input" type="number" placeholder="von" value="1" min="0"/>
+          <span style="color:var(--text-3)">—</span>
+          <input class="price-input" type="number" placeholder="bis" value="30" min="0"/>
+        </div>
+      </div>
+
+      <div class="filter-block">
+        <div class="filter-title open">
+          Marke
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="filter-checks">
+          <label class="filter-check"><input type="checkbox" checked/> Fruit of the Loom</label>
+          <label class="filter-check"><input type="checkbox"/> Gildan</label>
+          <label class="filter-check"><input type="checkbox"/> Russell</label>
+          <label class="filter-check"><input type="checkbox"/> B&amp;C</label>
+          <label class="filter-check"><input type="checkbox"/> Sol's</label>
+          <label class="filter-check"><input type="checkbox"/> Clique</label>
+        </div>
+      </div>
+
+      <div class="filter-block">
+        <div class="filter-title open">
+          Veredelung
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="filter-checks">
+          <label class="filter-check"><input type="checkbox" checked/> Siebdruckfähig</label>
+          <label class="filter-check"><input type="checkbox" checked/> DTG-geeignet</label>
+          <label class="filter-check"><input type="checkbox"/> Stickerei-geeignet</label>
+          <label class="filter-check"><input type="checkbox"/> Transferdruck</label>
+        </div>
+      </div>
+
+      <div class="filter-actions">
+        <button class="filter-clear">Zurücksetzen</button>
+        <button class="filter-apply btn-primary">Filter anwenden</button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="shop-main">
+      <div class="shop-topbar">
+        <div class="shop-count"><strong>1.240</strong> Artikel gefunden</div>
+        <select class="sort-select">
+          <option>Beliebteste zuerst</option>
+          <option>Preis: aufsteigend</option>
+          <option>Preis: absteigend</option>
+          <option>Neueste zuerst</option>
+          <option>Name A–Z</option>
+        </select>
+      </div>
+
+      <div class="active-filters">
+        <span class="active-tag">T-Shirts <button>×</button></span>
+        <span class="active-tag">Schwarz <button>×</button></span>
+        <span class="active-tag">S, M <button>×</button></span>
+        <span class="active-tag">Fruit of the Loom <button>×</button></span>
+      </div>
+
+      <div class="products-grid">
+        <!-- Card 1 -->
+        <div class="prod-card">
+          <div class="prod-img">
+            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&q=80" alt="Heavy Cotton T-Shirt"/>
+            <span class="prod-badge badge-top">Bestseller</span>
+          </div>
+          <div class="prod-info">
+            <div class="prod-brand">Fruit of the Loom</div>
+            <div class="prod-name">Heavy Cotton T-Shirt</div>
+            <div class="prod-meta">
+              <div><div class="prod-price">ab 2,68 €</div><div class="prod-price-old">inkl. MwSt.</div></div>
+              <div class="prod-colors">
+                <span class="prod-color-dot" style="background:#1a1a1a"></span>
+                <span class="prod-color-dot" style="background:#f0f0f0;border:1px solid #ccc"></span>
+                <span class="prod-color-dot" style="background:#1a2a4a"></span>
+                <span class="prod-more-colors">+12</span>
+              </div>
+            </div>
+          </div>
+          <div class="prod-actions">
+            <button class="prod-btn-cart">In den Warenkorb</button>
+            <button class="prod-btn-wish" aria-label="Merken">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="prod-card">
+          <div class="prod-img">
+            <img src="https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=500&q=80" alt="Classic Poloshirt"/>
+            <span class="prod-badge badge-new">Neu</span>
+          </div>
+          <div class="prod-info">
+            <div class="prod-brand">Russell</div>
+            <div class="prod-name">Classic Poloshirt Piqué</div>
+            <div class="prod-meta">
+              <div><div class="prod-price">ab 6,94 €</div><div class="prod-price-old">inkl. MwSt.</div></div>
+              <div class="prod-colors">
+                <span class="prod-color-dot" style="background:#1a3a1a"></span>
+                <span class="prod-color-dot" style="background:#1a1a3a"></span>
+                <span class="prod-more-colors">+8</span>
+              </div>
+            </div>
+          </div>
+          <div class="prod-actions">
+            <button class="prod-btn-cart">In den Warenkorb</button>
+            <button class="prod-btn-wish" aria-label="Merken">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="prod-card">
+          <div class="prod-img">
+            <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=500&q=80" alt="Heavy Blend Hoodie"/>
+            <span class="prod-badge badge-sale">−25%</span>
+          </div>
+          <div class="prod-info">
+            <div class="prod-brand">Gildan</div>
+            <div class="prod-name">Heavy Blend Hoodie</div>
+            <div class="prod-meta">
+              <div><div class="prod-price">ab 9,50 €</div><div class="prod-price-old">12,60 €</div></div>
+              <div class="prod-colors">
+                <span class="prod-color-dot" style="background:#555"></span>
+                <span class="prod-color-dot" style="background:#1a1a1a"></span>
+                <span class="prod-more-colors">+6</span>
+              </div>
+            </div>
+          </div>
+          <div class="prod-actions">
+            <button class="prod-btn-cart">In den Warenkorb</button>
+            <button class="prod-btn-wish" aria-label="Merken">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="prod-card">
+          <div class="prod-img">
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80" alt="Softshell Jacke"/>
+          </div>
+          <div class="prod-info">
+            <div class="prod-brand">Result</div>
+            <div class="prod-name">Softshell-Arbeitsjacke</div>
+            <div class="prod-meta">
+              <div><div class="prod-price">ab 18,90 €</div><div class="prod-price-old">inkl. MwSt.</div></div>
+              <div class="prod-colors">
+                <span class="prod-color-dot" style="background:#0d2137"></span>
+                <span class="prod-color-dot" style="background:#1a1a1a"></span>
+              </div>
+            </div>
+          </div>
+          <div class="prod-actions">
+            <button class="prod-btn-cart">In den Warenkorb</button>
+            <button class="prod-btn-wish" aria-label="Merken">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="prod-card">
+          <div class="prod-img">
+            <img src="https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?w=500&q=80" alt="Arbeits-Poloshirt"/>
+            <span class="prod-badge badge-top">Top Bewertet</span>
+          </div>
+          <div class="prod-info">
+            <div class="prod-brand">B&amp;C</div>
+            <div class="prod-name">Piqué Arbeits-Poloshirt</div>
+            <div class="prod-meta">
+              <div><div class="prod-price">ab 5,40 €</div><div class="prod-price-old">inkl. MwSt.</div></div>
+              <div class="prod-colors">
+                <span class="prod-color-dot" style="background:#c0392b"></span>
+                <span class="prod-color-dot" style="background:#1a1a1a"></span>
+                <span class="prod-more-colors">+14</span>
+              </div>
+            </div>
+          </div>
+          <div class="prod-actions">
+            <button class="prod-btn-cart">In den Warenkorb</button>
+            <button class="prod-btn-wish" aria-label="Merken">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="prod-card">
+          <div class="prod-img">
+            <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=500&q=80" alt="Tank Top Sport"/>
+          </div>
+          <div class="prod-info">
+            <div class="prod-brand">Sol's</div>
+            <div class="prod-name">Performance Tank Top</div>
+            <div class="prod-meta">
+              <div><div class="prod-price">ab 3,90 €</div><div class="prod-price-old">inkl. MwSt.</div></div>
+              <div class="prod-colors">
+                <span class="prod-color-dot" style="background:#f59e0b"></span>
+                <span class="prod-color-dot" style="background:#2563eb"></span>
+                <span class="prod-more-colors">+10</span>
+              </div>
+            </div>
+          </div>
+          <div class="prod-actions">
+            <button class="prod-btn-cart">In den Warenkorb</button>
+            <button class="prod-btn-wish" aria-label="Merken">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="pagination">
+        <button class="page-btn" aria-label="Zurück">‹</button>
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <span style="color:var(--text-3)">…</span>
+        <button class="page-btn">24</button>
+        <button class="page-btn" aria-label="Weiter">›</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer-slim">
+    <div class="footer-slim-logo">tex<span>-hub</span></div>
+    <div class="footer-slim-links">
+      <a href="#">AGB</a>
+      <a href="#">Datenschutz</a>
+      <a href="#">Impressum</a>
+      <a href="about.html#kontakt">Kontakt</a>
+    </div>
+    <div class="footer-slim-copy">© 2026 tex-hub.pro</div>
+  </footer>
+
+  <script>
+    // Nav scroll shadow
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 20), { passive: true });
+
+    // Filter accordion toggle
+    document.querySelectorAll('.filter-title').forEach(title => {
+      title.addEventListener('click', () => title.classList.toggle('open'));
+    });
+
+    // Size buttons toggle
+    document.querySelectorAll('.size-btn').forEach(btn => {
+      btn.addEventListener('click', () => btn.classList.toggle('active'));
+    });
+
+    // Color swatches toggle
+    document.querySelectorAll('.color-swatch').forEach(sw => {
+      sw.addEventListener('click', () => sw.classList.toggle('active'));
+    });
+
+    // Category filter
+    document.querySelectorAll('.filter-cat').forEach(cat => {
+      cat.addEventListener('click', () => {
+        document.querySelectorAll('.filter-cat').forEach(c => c.classList.remove('active'));
+        cat.classList.add('active');
+      });
+    });
+
+    // Active filter tag remove
+    document.querySelectorAll('.active-tag button').forEach(btn => {
+      btn.addEventListener('click', () => btn.closest('.active-tag').remove());
+    });
+
+    // Card 3D tilt
+    document.querySelectorAll('.prod-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = `translateY(-4px) rotateY(${x*6}deg) rotateX(${-y*5}deg)`;
+      });
+      card.addEventListener('mouseleave', () => card.style.transform = '');
+    });
+  </script>
+</body>
+</html>

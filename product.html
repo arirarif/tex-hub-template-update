@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Heavy Cotton T-Shirt — Tex-Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    img  { display:block; max-width:100%; }
+    a    { text-decoration:none; color:inherit; }
+    button { font-family:inherit; cursor:pointer; border:none; background:none; }
+
+    :root {
+      --bg:#f5f0e8; --surface:#faf7f2; --surface-2:#ffffff;
+      --border:rgba(80,60,20,0.12); --border-2:rgba(80,60,20,0.22);
+      --accent:#2a6e4e; --accent-lt:#3a8f65; --accent-dim:rgba(42,110,78,0.10);
+      --gold:#c8860a;
+      --text:#1c1a16; --text-2:#5a5040; --text-3:#9a8e78;
+      --shadow-sm:0 2px 8px rgba(80,60,20,0.08);
+      --shadow-md:0 8px 24px rgba(80,60,20,0.12);
+      --r-sm:8px;--r:12px;--r-lg:20px;--r-pill:100px;
+      --sp-4:4px;--sp-8:8px;--sp-12:12px;--sp-16:16px;
+      --sp-24:24px;--sp-32:32px;--sp-48:48px;--sp-64:64px;--sp-96:96px;
+    }
+    body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+
+    /* NAV */
+    .announcement { background:var(--accent); color:#fff; text-align:center; padding:var(--sp-8) var(--sp-16); font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; }
+    .nav { position:sticky; top:0; z-index:100; background:rgba(245,240,232,0.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); transition:box-shadow 0.3s; }
+    .nav.scrolled { box-shadow:var(--shadow-md); }
+    .nav-inner { display:flex; align-items:center; gap:var(--sp-32); height:68px; max-width:1280px; margin:0 auto; padding:0 var(--sp-32); }
+    .nav-logo { font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; letter-spacing:-0.02em; }
+    .nav-logo span { color:var(--accent); }
+    .nav-links { display:flex; align-items:center; gap:var(--sp-4); flex:1; }
+    .nav-links a { font-size:14px; font-weight:500; color:var(--text-2); padding:var(--sp-8) var(--sp-12); border-radius:var(--r-sm); transition:color 0.2s,background 0.2s; }
+    .nav-links a:hover { color:var(--accent); background:var(--accent-dim); }
+    .nav-badge { font-size:10px; font-weight:700; background:var(--gold); color:#fff; padding:2px 7px; border-radius:var(--r-pill); margin-left:var(--sp-4); }
+    .nav-right { display:flex; align-items:center; gap:var(--sp-12); flex-shrink:0; }
+    .btn-outline { font-size:13px; font-weight:600; color:var(--text-2); padding:8px 18px; border:1px solid var(--border-2); border-radius:var(--r-pill); transition:all 0.2s; }
+    .btn-outline:hover { color:var(--accent); border-color:var(--accent); }
+    .btn-primary { font-size:13px; font-weight:700; color:#fff; background:var(--accent); padding:9px 20px; border-radius:var(--r-pill); transition:opacity 0.2s,transform 0.2s; }
+    .btn-primary:hover { opacity:0.88; transform:translateY(-1px); }
+    @media(max-width:768px){ .nav-links,.btn-outline{display:none;} .nav-inner{padding:0 var(--sp-16);} }
+
+    /* BREADCRUMB */
+    .breadcrumb { max-width:1280px; margin:0 auto; padding:var(--sp-16) var(--sp-32); display:flex; align-items:center; gap:var(--sp-8); font-size:13px; color:var(--text-3); }
+    .breadcrumb a { color:var(--text-3); transition:color 0.2s; }
+    .breadcrumb a:hover { color:var(--accent); }
+
+    /* PRODUCT LAYOUT */
+    .product-wrap { max-width:1280px; margin:0 auto; padding:0 var(--sp-32) var(--sp-96); display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-64); align-items:start; }
+    @media(max-width:900px){ .product-wrap{grid-template-columns:1fr; padding:0 var(--sp-16) var(--sp-64);} }
+
+    /* GALLERY */
+    .gallery { position:sticky; top:84px; }
+    .gallery-main { border-radius:var(--r-lg); overflow:hidden; aspect-ratio:4/5; background:var(--surface-2); border:1px solid var(--border); margin-bottom:var(--sp-12); }
+    .gallery-main img { width:100%; height:100%; object-fit:cover; }
+    .gallery-thumbs { display:flex; gap:var(--sp-8); }
+    .gallery-thumb { width:72px; height:90px; border-radius:var(--r-sm); overflow:hidden; border:2px solid transparent; cursor:pointer; flex-shrink:0; transition:border-color 0.2s; }
+    .gallery-thumb.active { border-color:var(--accent); }
+    .gallery-thumb img { width:100%; height:100%; object-fit:cover; }
+    @media(max-width:900px){ .gallery{position:static;} }
+
+    /* PRODUCT DETAILS */
+    .prod-details {}
+    .prod-badges { display:flex; gap:var(--sp-8); margin-bottom:var(--sp-16); flex-wrap:wrap; }
+    .prod-badge { font-size:11px; font-weight:700; padding:3px 10px; border-radius:var(--r-pill); text-transform:uppercase; letter-spacing:0.05em; }
+    .badge-new { background:var(--accent); color:#fff; }
+    .badge-best { background:rgba(28,26,22,0.08); color:var(--text-2); border:1px solid var(--border-2); }
+    .badge-print { background:var(--accent-dim); color:var(--accent); border:1px solid rgba(42,110,78,0.2); }
+
+    .prod-brand-name { font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-3); margin-bottom:var(--sp-8); }
+    .prod-title { font-family:'Space Grotesk',sans-serif; font-size:clamp(24px,3vw,36px); font-weight:700; letter-spacing:-0.02em; line-height:1.15; color:var(--text); margin-bottom:var(--sp-16); }
+
+    .prod-rating { display:flex; align-items:center; gap:var(--sp-8); margin-bottom:var(--sp-24); }
+    .stars { color:var(--gold); font-size:14px; letter-spacing:1px; }
+    .rating-count { font-size:13px; color:var(--text-3); }
+    .rating-link { font-size:13px; color:var(--accent); text-decoration:underline; text-underline-offset:2px; }
+
+    .price-block { display:flex; align-items:baseline; gap:var(--sp-12); margin-bottom:var(--sp-8); }
+    .price-main { font-family:'Space Grotesk',sans-serif; font-size:32px; font-weight:700; color:var(--text); }
+    .price-from { font-size:13px; color:var(--text-3); }
+    .price-note { font-size:12px; color:var(--text-3); margin-bottom:var(--sp-24); }
+
+    /* Bulk pricing */
+    .bulk-table { width:100%; border-collapse:collapse; margin-bottom:var(--sp-24); border-radius:var(--r-sm); overflow:hidden; border:1px solid var(--border); }
+    .bulk-table th { background:var(--surface-2); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-3); padding:8px 12px; text-align:left; border-bottom:1px solid var(--border); }
+    .bulk-table td { font-size:13px; padding:8px 12px; border-bottom:1px solid var(--border); color:var(--text-2); }
+    .bulk-table tr:last-child td { border-bottom:none; }
+    .bulk-table tr.active-qty { background:var(--accent-dim); }
+    .bulk-table tr.active-qty td { color:var(--accent); font-weight:600; }
+    .bulk-table .save-badge { font-size:10px; font-weight:700; background:var(--gold); color:#fff; padding:1px 6px; border-radius:var(--r-pill); margin-left:4px; }
+
+    /* Color picker */
+    .variant-label { font-size:13px; font-weight:600; color:var(--text-2); margin-bottom:var(--sp-8); display:flex; align-items:center; justify-content:space-between; }
+    .variant-label span { font-weight:400; color:var(--text-3); }
+    .color-picker { display:flex; flex-wrap:wrap; gap:var(--sp-8); margin-bottom:var(--sp-24); }
+    .color-btn { width:32px; height:32px; border-radius:50%; border:2px solid transparent; cursor:pointer; transition:transform 0.15s; position:relative; }
+    .color-btn:hover { transform:scale(1.15); }
+    .color-btn.active { border-color:var(--accent); outline:2px solid var(--accent); outline-offset:2px; }
+    .color-btn[title]::after { content:attr(title); position:absolute; bottom:-24px; left:50%; transform:translateX(-50%); font-size:10px; background:var(--text); color:#fff; padding:2px 6px; border-radius:4px; white-space:nowrap; opacity:0; transition:opacity 0.15s; pointer-events:none; }
+    .color-btn:hover::after { opacity:1; }
+
+    /* Size picker */
+    .size-picker { display:flex; flex-wrap:wrap; gap:var(--sp-8); margin-bottom:var(--sp-8); }
+    .size-opt { min-width:48px; height:44px; padding:0 var(--sp-12); border:1px solid var(--border-2); border-radius:var(--r-sm); font-size:14px; font-weight:600; color:var(--text-2); cursor:pointer; transition:all 0.15s; display:flex; align-items:center; justify-content:center; }
+    .size-opt:hover:not(.out) { border-color:var(--accent); color:var(--accent); background:var(--accent-dim); }
+    .size-opt.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+    .size-opt.out { opacity:0.35; cursor:not-allowed; text-decoration:line-through; }
+    .size-guide-link { font-size:12px; color:var(--accent); cursor:pointer; margin-bottom:var(--sp-24); text-decoration:underline; text-underline-offset:2px; display:inline-block; }
+
+    /* Qty + Add to cart */
+    .cart-row { display:flex; gap:var(--sp-12); margin-bottom:var(--sp-24); }
+    .qty-control { display:flex; align-items:center; border:1px solid var(--border-2); border-radius:var(--r-sm); overflow:hidden; }
+    .qty-btn { width:40px; height:52px; font-size:20px; color:var(--text-2); transition:background 0.15s; flex-shrink:0; }
+    .qty-btn:hover { background:var(--accent-dim); color:var(--accent); }
+    .qty-input { width:56px; height:52px; text-align:center; font-size:16px; font-weight:600; font-family:inherit; border:none; border-left:1px solid var(--border); border-right:1px solid var(--border); background:var(--surface-2); color:var(--text); }
+    .qty-input:focus { outline:none; }
+    .btn-cart { flex:1; height:52px; background:var(--accent); color:#fff; font-size:15px; font-weight:700; font-family:'Space Grotesk',sans-serif; border-radius:var(--r-sm); cursor:pointer; transition:opacity 0.2s,transform 0.2s; display:flex; align-items:center; justify-content:center; gap:var(--sp-8); }
+    .btn-cart:hover { opacity:0.88; transform:translateY(-1px); }
+    .btn-wishlist { width:52px; height:52px; border:1px solid var(--border-2); border-radius:var(--r-sm); display:flex; align-items:center; justify-content:center; color:var(--text-3); transition:all 0.2s; flex-shrink:0; }
+    .btn-wishlist:hover { color:var(--gold); border-color:var(--gold); }
+
+    /* Trust badges */
+    .trust-row { display:flex; flex-wrap:wrap; gap:var(--sp-16); padding:var(--sp-16); background:var(--surface-2); border:1px solid var(--border); border-radius:var(--r-lg); margin-bottom:var(--sp-24); }
+    .trust-item { display:flex; align-items:center; gap:var(--sp-8); font-size:12px; color:var(--text-2); }
+    .trust-icon { color:var(--accent); flex-shrink:0; }
+
+    /* TABS */
+    .tabs { border-top:1px solid var(--border); padding-top:var(--sp-32); margin-top:var(--sp-8); }
+    .tab-row { display:flex; gap:0; border-bottom:1px solid var(--border); margin-bottom:var(--sp-24); overflow-x:auto; }
+    .tab-btn { font-size:14px; font-weight:600; color:var(--text-3); padding:12px var(--sp-24); border-bottom:2px solid transparent; margin-bottom:-1px; white-space:nowrap; transition:color 0.2s,border-color 0.2s; cursor:pointer; }
+    .tab-btn.active { color:var(--accent); border-bottom-color:var(--accent); }
+    .tab-content { display:none; }
+    .tab-content.active { display:block; }
+
+    .spec-table { width:100%; border-collapse:collapse; }
+    .spec-table tr { border-bottom:1px solid var(--border); }
+    .spec-table td { padding:10px var(--sp-12); font-size:14px; }
+    .spec-table td:first-child { font-weight:600; color:var(--text-2); width:40%; }
+    .spec-table td:last-child { color:var(--text-3); }
+
+    /* Size chart */
+    .size-chart { overflow-x:auto; }
+    .size-chart table { width:100%; border-collapse:collapse; font-size:13px; }
+    .size-chart th { background:var(--surface); padding:10px var(--sp-12); font-weight:700; text-align:left; border:1px solid var(--border); color:var(--text-2); }
+    .size-chart td { padding:9px var(--sp-12); border:1px solid var(--border); color:var(--text-3); }
+    .size-chart tr:nth-child(even) td { background:var(--surface); }
+
+    /* Related */
+    .related { max-width:1280px; margin:0 auto; padding:0 var(--sp-32) var(--sp-96); }
+    .related-title { font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:700; margin-bottom:var(--sp-32); }
+    .related-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:var(--sp-16); }
+    @media(max-width:768px){ .related-grid{grid-template-columns:repeat(2,1fr);} .related{padding:0 var(--sp-16) var(--sp-64);} }
+
+    .rel-card { background:var(--surface-2); border:1px solid var(--border); border-radius:var(--r-lg); overflow:hidden; cursor:pointer; transition:transform 0.2s,box-shadow 0.2s; }
+    .rel-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); }
+    .rel-card img { width:100%; aspect-ratio:1; object-fit:cover; }
+    .rel-card-info { padding:var(--sp-12); }
+    .rel-brand { font-size:11px; color:var(--text-3); font-weight:600; text-transform:uppercase; letter-spacing:0.08em; }
+    .rel-name { font-size:14px; font-weight:600; color:var(--text); margin:var(--sp-4) 0; }
+    .rel-price { font-size:14px; font-weight:700; color:var(--accent); }
+
+    /* FOOTER slim */
+    .footer-slim { background:var(--surface-2); border-top:1px solid var(--border); padding:var(--sp-32); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--sp-16); }
+    .footer-slim-logo { font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:700; }
+    .footer-slim-logo span { color:var(--accent); }
+    .footer-slim-links { display:flex; gap:var(--sp-24); }
+    .footer-slim-links a { font-size:13px; color:var(--text-3); transition:color 0.2s; }
+    .footer-slim-links a:hover { color:var(--text); }
+    .footer-slim-copy { font-size:12px; color:var(--text-3); }
+  </style>
+</head>
+<body>
+
+  <div class="announcement">Händlerkonto erstellen &amp; 10% auf die erste Bestellung sichern →</div>
+
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">tex<span>-hub</span></a>
+      <div class="nav-links">
+        <a href="shop.html">Kategorien</a>
+        <a href="shop.html">Marken</a>
+        <a href="shop.html">Angebote <span class="nav-badge">SALE</span></a>
+        <a href="shop.html">Teamwear</a>
+        <a href="shop.html">Workwear</a>
+      </div>
+      <div class="nav-right">
+        <a href="haendler.html" class="btn-outline">Händler-Login</a>
+        <a href="haendler.html" class="btn-primary">Konto erstellen</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="breadcrumb">
+    <a href="index.html">Startseite</a> /
+    <a href="shop.html">T-Shirts</a> /
+    <span>Heavy Cotton T-Shirt</span>
+  </div>
+
+  <div class="product-wrap">
+
+    <!-- GALLERY -->
+    <div class="gallery">
+      <div class="gallery-main">
+        <img id="mainImg" src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80" alt="Heavy Cotton T-Shirt Schwarz"/>
+      </div>
+      <div class="gallery-thumbs">
+        <div class="gallery-thumb active" onclick="switchImg(this,'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80')">
+          <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200&q=70" alt="Ansicht 1"/>
+        </div>
+        <div class="gallery-thumb" onclick="switchImg(this,'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&q=80')">
+          <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=200&q=70" alt="Ansicht 2"/>
+        </div>
+        <div class="gallery-thumb" onclick="switchImg(this,'https://images.unsplash.com/photo-1562157873-818bc0726f68?w=800&q=80')">
+          <img src="https://images.unsplash.com/photo-1562157873-818bc0726f68?w=200&q=70" alt="Ansicht 3"/>
+        </div>
+        <div class="gallery-thumb" onclick="switchImg(this,'https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=800&q=80')">
+          <img src="https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=200&q=70" alt="Ansicht 4"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- DETAILS -->
+    <div class="prod-details">
+      <div class="prod-badges">
+        <span class="prod-badge badge-new">Bestseller</span>
+        <span class="prod-badge badge-best">Siebdruckfähig</span>
+        <span class="prod-badge badge-print">DTG-geeignet</span>
+      </div>
+
+      <div class="prod-brand-name">Fruit of the Loom</div>
+      <h1 class="prod-title">Heavy Cotton T-Shirt<br>61-036-0</h1>
+
+      <div class="prod-rating">
+        <span class="stars">★★★★★</span>
+        <span class="rating-count">4,8 (124 Bewertungen)</span>
+        <a class="rating-link" href="#bewertungen">Bewertungen lesen</a>
+      </div>
+
+      <div class="price-block">
+        <span class="price-from">ab</span>
+        <span class="price-main" id="currentPrice">2,68 €</span>
+        <span style="font-size:13px;color:var(--text-3)">/ Stück</span>
+      </div>
+      <div class="price-note">Alle Preise inkl. MwSt. zzgl. Versandkosten. Mengenrabatt ab 12 Stück.</div>
+
+      <!-- Bulk pricing table -->
+      <table class="bulk-table">
+        <thead><tr><th>Menge (Stück)</th><th>Preis/Stück</th><th>Ersparnis</th></tr></thead>
+        <tbody>
+          <tr><td>1–11</td><td>3,90 €</td><td>—</td></tr>
+          <tr class="active-qty"><td>12–35 <span class="save-badge">AKT.</span></td><td>2,68 €</td><td>−31%</td></tr>
+          <tr><td>36–99</td><td>2,20 €</td><td>−44%</td></tr>
+          <tr><td>100–499</td><td>1,95 €</td><td>−50%</td></tr>
+          <tr><td>500+</td><td>auf Anfrage</td><td>—</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Color -->
+      <div class="variant-label">Farbe <span id="selectedColor">Schwarz</span></div>
+      <div class="color-picker">
+        <button class="color-btn active" style="background:#1a1a1a" title="Schwarz" onclick="selectColor(this,'Schwarz')"></button>
+        <button class="color-btn" style="background:#f0f0f0;border:1px solid #ccc" title="Weiß" onclick="selectColor(this,'Weiß')"></button>
+        <button class="color-btn" style="background:#1a2a4a" title="Navy" onclick="selectColor(this,'Navy')"></button>
+        <button class="color-btn" style="background:#888" title="Grau" onclick="selectColor(this,'Grau')"></button>
+        <button class="color-btn" style="background:#c0392b" title="Rot" onclick="selectColor(this,'Rot')"></button>
+        <button class="color-btn" style="background:#2a6e4e" title="Flaschengrün" onclick="selectColor(this,'Flaschengrün')"></button>
+        <button class="color-btn" style="background:#7b2040" title="Bordeaux" onclick="selectColor(this,'Bordeaux')"></button>
+        <button class="color-btn" style="background:#f59e0b" title="Gelb" onclick="selectColor(this,'Gelb')"></button>
+        <button class="color-btn" style="background:#e85c20" title="Orange" onclick="selectColor(this,'Orange')"></button>
+        <button class="color-btn" style="background:#4a2c6e" title="Lila" onclick="selectColor(this,'Lila')"></button>
+        <button class="color-btn" style="background:#2563eb" title="Royalblau" onclick="selectColor(this,'Royalblau')"></button>
+        <button class="color-btn" style="background:#b8d4b8" title="Mintgrün" onclick="selectColor(this,'Mintgrün')"></button>
+      </div>
+
+      <!-- Size -->
+      <div class="variant-label">Größe <span id="selectedSize">Bitte wählen</span></div>
+      <div class="size-picker">
+        <button class="size-opt" onclick="selectSize(this)">XS</button>
+        <button class="size-opt" onclick="selectSize(this)">S</button>
+        <button class="size-opt" onclick="selectSize(this)">M</button>
+        <button class="size-opt" onclick="selectSize(this)">L</button>
+        <button class="size-opt" onclick="selectSize(this)">XL</button>
+        <button class="size-opt" onclick="selectSize(this)">2XL</button>
+        <button class="size-opt" onclick="selectSize(this)">3XL</button>
+        <button class="size-opt out" title="Ausverkauft">4XL</button>
+        <button class="size-opt" onclick="selectSize(this)">5XL</button>
+      </div>
+      <span class="size-guide-link" onclick="openTab('groessen')">→ Größentabelle ansehen</span>
+
+      <!-- Cart -->
+      <div class="cart-row">
+        <div class="qty-control">
+          <button class="qty-btn" onclick="changeQty(-1)">−</button>
+          <input class="qty-input" type="number" id="qty" value="12" min="1"/>
+          <button class="qty-btn" onclick="changeQty(1)">+</button>
+        </div>
+        <button class="btn-cart">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          In den Warenkorb
+        </button>
+        <button class="btn-wishlist" aria-label="Auf Wunschliste">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </button>
+      </div>
+
+      <!-- Trust badges -->
+      <div class="trust-row">
+        <div class="trust-item">
+          <svg class="trust-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Versand in 48h (DE)
+        </div>
+        <div class="trust-item">
+          <svg class="trust-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+          Kostenlos ab 150 €
+        </div>
+        <div class="trust-item">
+          <svg class="trust-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Trusted Shops zertifiziert
+        </div>
+        <div class="trust-item">
+          <svg class="trust-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+          Rückgabe 30 Tage
+        </div>
+      </div>
+
+      <!-- TABS -->
+      <div class="tabs">
+        <div class="tab-row">
+          <button class="tab-btn active" onclick="openTab('details')">Details</button>
+          <button class="tab-btn" onclick="openTab('groessen')">Größentabelle</button>
+          <button class="tab-btn" onclick="openTab('veredelung')">Veredelung</button>
+          <button class="tab-btn" onclick="openTab('bewertungen')">Bewertungen (124)</button>
+        </div>
+
+        <div class="tab-content active" id="tab-details">
+          <table class="spec-table">
+            <tr><td>Material</td><td>100% Baumwolle (ringgesponnen)</td></tr>
+            <tr><td>Gewicht</td><td>180 g/m²</td></tr>
+            <tr><td>Passform</td><td>Regular Fit</td></tr>
+            <tr><td>Kragen</td><td>Crew Neck, Doppelnaht</td></tr>
+            <tr><td>Verfügbare Farben</td><td>61 Farben</td></tr>
+            <tr><td>Größen</td><td>XS – 5XL</td></tr>
+            <tr><td>Zertifizierungen</td><td>Oeko-Tex Standard 100</td></tr>
+            <tr><td>Siebdruck</td><td>Exzellent geeignet (glatte Oberfläche)</td></tr>
+            <tr><td>Mindestbestellmenge</td><td>keine (Mengenrabatt ab 12 Stück)</td></tr>
+          </table>
+        </div>
+
+        <div class="tab-content" id="tab-groessen">
+          <div class="size-chart">
+            <table>
+              <thead><tr><th>Größe</th><th>Brust (cm)</th><th>Länge (cm)</th><th>Schulter (cm)</th></tr></thead>
+              <tbody>
+                <tr><td>XS</td><td>81–86</td><td>65</td><td>41</td></tr>
+                <tr><td>S</td><td>86–91</td><td>68</td><td>43</td></tr>
+                <tr><td>M</td><td>96–101</td><td>71</td><td>46</td></tr>
+                <tr><td>L</td><td>106–111</td><td>74</td><td>49</td></tr>
+                <tr><td>XL</td><td>116–121</td><td>77</td><td>52</td></tr>
+                <tr><td>2XL</td><td>126–131</td><td>79</td><td>55</td></tr>
+                <tr><td>3XL</td><td>136–141</td><td>81</td><td>58</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="tab-content" id="tab-veredelung">
+          <p style="font-size:14px;line-height:1.8;color:var(--text-2);margin-bottom:var(--sp-16)">Das Heavy Cotton T-Shirt eignet sich hervorragend für alle gängigen Veredelungsverfahren:</p>
+          <table class="spec-table">
+            <tr><td>Siebdruck</td><td>Sehr gut — glatte, gleichmäßige Oberfläche</td></tr>
+            <tr><td>DTG / Digitaldruck</td><td>Sehr gut — helle Unterlage ohne Vorbehandlung</td></tr>
+            <tr><td>Transferdruck</td><td>Gut — für mittlere Auflagen geeignet</td></tr>
+            <tr><td>Stickerei</td><td>Möglich — bei Stick-Frames beachten</td></tr>
+            <tr><td>Max. Druckfläche vorne</td><td>30 × 40 cm</td></tr>
+            <tr><td>Max. Druckfläche hinten</td><td>34 × 44 cm</td></tr>
+          </table>
+        </div>
+
+        <div class="tab-content" id="tab-bewertungen">
+          <p style="font-size:14px;color:var(--text-3);margin-bottom:var(--sp-24)">Durchschnitt: ★★★★★ 4,8 von 5 (124 Bewertungen)</p>
+          <div style="display:flex;flex-direction:column;gap:var(--sp-16)">
+            <div style="padding:var(--sp-16);background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-lg)">
+              <div style="color:var(--gold);margin-bottom:var(--sp-8)">★★★★★</div>
+              <p style="font-size:14px;color:var(--text-2);line-height:1.7;margin-bottom:var(--sp-8)">"Super Qualität, perfekter Siebdruck-Untergrund. Wir bestellen regelmäßig für unsere Vereinstrikots."</p>
+              <div style="font-size:12px;color:var(--text-3)">Markus K. — Sportverein München</div>
+            </div>
+            <div style="padding:var(--sp-16);background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-lg)">
+              <div style="color:var(--gold);margin-bottom:var(--sp-8)">★★★★★</div>
+              <p style="font-size:14px;color:var(--text-2);line-height:1.7;margin-bottom:var(--sp-8)">"Lieferung in 2 Tagen, sehr gute Verarbeitung. Farbtreue nach Wäsche top."</p>
+              <div style="font-size:12px;color:var(--text-3)">Sandra B. — Werbeagentur Hamburg</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RELATED PRODUCTS -->
+  <div class="related">
+    <div class="related-title">Ähnliche Artikel</div>
+    <div class="related-grid">
+      <a href="product.html" class="rel-card">
+        <img src="https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=400&q=80" alt="Poloshirt"/>
+        <div class="rel-card-info"><div class="rel-brand">Russell</div><div class="rel-name">Classic Poloshirt</div><div class="rel-price">ab 6,94 €</div></div>
+      </a>
+      <a href="product.html" class="rel-card">
+        <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&q=80" alt="Hoodie"/>
+        <div class="rel-card-info"><div class="rel-brand">Gildan</div><div class="rel-name">Heavy Blend Hoodie</div><div class="rel-price">ab 9,50 €</div></div>
+      </a>
+      <a href="product.html" class="rel-card">
+        <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=400&q=80" alt="Tank Top"/>
+        <div class="rel-card-info"><div class="rel-brand">Sol's</div><div class="rel-name">Performance Tank Top</div><div class="rel-price">ab 3,90 €</div></div>
+      </a>
+      <a href="product.html" class="rel-card">
+        <img src="https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=400&q=80" alt="T-Shirt Sport"/>
+        <div class="rel-card-info"><div class="rel-brand">B&amp;C</div><div class="rel-name">Sport T-Shirt</div><div class="rel-price">ab 4,20 €</div></div>
+      </a>
+    </div>
+  </div>
+
+  <footer class="footer-slim">
+    <div class="footer-slim-logo">tex<span>-hub</span></div>
+    <div class="footer-slim-links">
+      <a href="#">AGB</a><a href="#">Datenschutz</a><a href="#">Impressum</a><a href="#">Kontakt</a>
+    </div>
+    <div class="footer-slim-copy">© 2026 tex-hub.pro</div>
+  </footer>
+
+  <script>
+    // Nav scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 20), { passive: true });
+
+    // Gallery switch
+    function switchImg(thumb, url) {
+      document.getElementById('mainImg').src = url;
+      document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+    }
+
+    // Color picker
+    function selectColor(btn, name) {
+      document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('selectedColor').textContent = name;
+    }
+
+    // Size picker
+    function selectSize(btn) {
+      document.querySelectorAll('.size-opt:not(.out)').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('selectedSize').textContent = btn.textContent;
+    }
+
+    // Quantity
+    function changeQty(delta) {
+      const input = document.getElementById('qty');
+      const newVal = Math.max(1, parseInt(input.value) + delta);
+      input.value = newVal;
+      // update bulk price highlight
+      const rows = document.querySelectorAll('.bulk-table tbody tr');
+      rows.forEach(r => r.classList.remove('active-qty'));
+      if (newVal < 12) rows[0].classList.add('active-qty');
+      else if (newVal < 36) rows[1].classList.add('active-qty');
+      else if (newVal < 100) rows[2].classList.add('active-qty');
+      else rows[3].classList.add('active-qty');
+    }
+    // also update on manual input
+    document.getElementById('qty').addEventListener('input', () => changeQty(0));
+
+    // Tabs
+    function openTab(id) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + id).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>

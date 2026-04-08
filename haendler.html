@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Händlerkonto — Tex-Hub B2B Großhandel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    img  { display:block; max-width:100%; }
+    a    { text-decoration:none; color:inherit; }
+    button { font-family:inherit; cursor:pointer; border:none; background:none; }
+
+    :root {
+      --bg:#f5f0e8; --surface:#faf7f2; --surface-2:#ffffff;
+      --border:rgba(80,60,20,0.12); --border-2:rgba(80,60,20,0.22);
+      --accent:#2a6e4e; --accent-lt:#3a8f65; --accent-dim:rgba(42,110,78,0.10);
+      --gold:#c8860a;
+      --text:#1c1a16; --text-2:#5a5040; --text-3:#9a8e78;
+      --shadow-sm:0 2px 8px rgba(80,60,20,0.08);
+      --shadow-md:0 8px 24px rgba(80,60,20,0.12);
+      --r-sm:8px;--r:12px;--r-lg:20px;--r-pill:100px;
+      --sp-4:4px;--sp-8:8px;--sp-12:12px;--sp-16:16px;
+      --sp-24:24px;--sp-32:32px;--sp-48:48px;--sp-64:64px;--sp-96:96px;
+    }
+    body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+
+    /* NAV */
+    .announcement { background:var(--accent); color:#fff; text-align:center; padding:var(--sp-8) var(--sp-16); font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; }
+    .nav { position:sticky; top:0; z-index:100; background:rgba(245,240,232,0.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); transition:box-shadow 0.3s; }
+    .nav.scrolled { box-shadow:var(--shadow-md); }
+    .nav-inner { display:flex; align-items:center; gap:var(--sp-32); height:68px; max-width:1280px; margin:0 auto; padding:0 var(--sp-32); }
+    .nav-logo { font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; letter-spacing:-0.02em; }
+    .nav-logo span { color:var(--accent); }
+    .nav-links { display:flex; align-items:center; gap:var(--sp-4); flex:1; }
+    .nav-links a { font-size:14px; font-weight:500; color:var(--text-2); padding:var(--sp-8) var(--sp-12); border-radius:var(--r-sm); transition:color 0.2s,background 0.2s; }
+    .nav-links a:hover { color:var(--accent); background:var(--accent-dim); }
+    .nav-badge { font-size:10px; font-weight:700; background:var(--gold); color:#fff; padding:2px 7px; border-radius:var(--r-pill); margin-left:var(--sp-4); }
+    .nav-right { display:flex; align-items:center; gap:var(--sp-12); flex-shrink:0; }
+    .btn-outline { font-size:13px; font-weight:600; color:var(--text-2); padding:8px 18px; border:1px solid var(--border-2); border-radius:var(--r-pill); transition:all 0.2s; }
+    .btn-outline:hover { color:var(--accent); border-color:var(--accent); }
+    .btn-primary { font-size:13px; font-weight:700; color:#fff; background:var(--accent); padding:9px 20px; border-radius:var(--r-pill); transition:opacity 0.2s,transform 0.2s; cursor:pointer; }
+    .btn-primary:hover { opacity:0.88; transform:translateY(-1px); }
+    @media(max-width:768px){ .nav-links,.btn-outline{display:none;} .nav-inner{padding:0 var(--sp-16);} }
+
+    /* HERO */
+    .haendler-hero {
+      background: linear-gradient(145deg, #1c3828 0%, #2a6e4e 60%, #1a4a36 100%);
+      padding: var(--sp-96) var(--sp-32);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .haendler-hero::before {
+      content:'';position:absolute;inset:0;
+      background-image:radial-gradient(circle,rgba(255,255,255,0.05) 1px,transparent 1px);
+      background-size:40px 40px;pointer-events:none;
+    }
+    .haendler-hero-inner { max-width:640px; margin:0 auto; position:relative; z-index:2; }
+    .hero-eyebrow { display:inline-flex; align-items:center; gap:var(--sp-8); font-size:12px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.7); background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); padding:7px 18px; border-radius:var(--r-pill); margin-bottom:var(--sp-24); }
+    .haendler-hero h1 { font-family:'Space Grotesk',sans-serif; font-size:clamp(32px,4.5vw,56px); font-weight:700; color:#fff; line-height:1.1; letter-spacing:-0.02em; margin-bottom:var(--sp-16); }
+    .haendler-hero p { font-size:18px; color:rgba(255,255,255,0.75); line-height:1.7; margin-bottom:var(--sp-32); }
+    .hero-actions { display:flex; gap:var(--sp-12); justify-content:center; flex-wrap:wrap; }
+    .btn-white { font-size:15px; font-weight:700; color:var(--accent); background:#fff; padding:14px 28px; border-radius:var(--r-pill); transition:transform 0.2s,box-shadow 0.2s; cursor:pointer; }
+    .btn-white:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,0.2); }
+    .btn-ghost-white { font-size:15px; font-weight:600; color:#fff; background:transparent; padding:14px 28px; border:1px solid rgba(255,255,255,0.4); border-radius:var(--r-pill); transition:background 0.2s; cursor:pointer; }
+    .btn-ghost-white:hover { background:rgba(255,255,255,0.1); }
+
+    /* STATS BAR */
+    .stats-bar { background:var(--surface-2); border-bottom:1px solid var(--border); }
+    .stats-inner { max-width:1280px; margin:0 auto; padding:var(--sp-32); display:flex; justify-content:space-around; flex-wrap:wrap; gap:var(--sp-32); text-align:center; }
+    .stat-num { font-family:'Space Grotesk',sans-serif; font-size:32px; font-weight:700; color:var(--accent); }
+    .stat-label { font-size:13px; color:var(--text-3); margin-top:var(--sp-4); }
+
+    /* PERKS */
+    .perks { max-width:1280px; margin:0 auto; padding:var(--sp-96) var(--sp-32); }
+    .section-label { font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent); margin-bottom:var(--sp-12); }
+    .section-title { font-family:'Space Grotesk',sans-serif; font-size:clamp(28px,3vw,40px); font-weight:700; letter-spacing:-0.02em; color:var(--text); margin-bottom:var(--sp-48); }
+    .section-title em { font-style:normal; color:var(--accent); }
+
+    .perks-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:var(--sp-24); }
+    @media(max-width:768px){ .perks-grid{grid-template-columns:1fr;} }
+    .perk-card { background:var(--surface-2); border:1px solid var(--border); border-radius:var(--r-lg); padding:var(--sp-32); transition:border-color 0.2s,transform 0.2s; }
+    .perk-card:hover { border-color:var(--accent); transform:translateY(-3px); }
+    .perk-icon { width:48px; height:48px; background:var(--accent-dim); border:1px solid rgba(42,110,78,0.2); border-radius:var(--r); display:flex; align-items:center; justify-content:center; color:var(--accent); margin-bottom:var(--sp-16); }
+    .perk-title { font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:700; color:var(--text); margin-bottom:var(--sp-8); }
+    .perk-text { font-size:14px; line-height:1.7; color:var(--text-2); }
+
+    /* PRICING TIERS */
+    .pricing { background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:var(--sp-96) var(--sp-32); }
+    .pricing-inner { max-width:1280px; margin:0 auto; }
+    .pricing-table-wrap { overflow-x:auto; margin-top:var(--sp-48); }
+    .pricing-table { width:100%; border-collapse:collapse; min-width:600px; }
+    .pricing-table th { background:var(--surface-2); padding:var(--sp-16) var(--sp-24); font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:700; color:var(--text-2); border:1px solid var(--border); text-align:left; }
+    .pricing-table th.accent { background:var(--accent); color:#fff; }
+    .pricing-table td { padding:var(--sp-16) var(--sp-24); font-size:14px; color:var(--text-2); border:1px solid var(--border); }
+    .pricing-table td.accent { background:rgba(42,110,78,0.06); font-weight:600; color:var(--accent); }
+    .pricing-table tr:last-child td { border-bottom:1px solid var(--border); }
+    .check { color:var(--accent); font-size:18px; }
+    .cross { color:var(--text-3); font-size:18px; }
+
+    /* FORM + LOGIN */
+    .form-section { max-width:1280px; margin:0 auto; padding:var(--sp-96) var(--sp-32); display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-64); align-items:start; }
+    @media(max-width:900px){ .form-section{grid-template-columns:1fr; padding:var(--sp-64) var(--sp-16);} .perks,.pricing{padding-left:var(--sp-16);padding-right:var(--sp-16);} }
+
+    .form-box { background:var(--surface-2); border:1px solid var(--border); border-radius:var(--r-lg); padding:var(--sp-48); }
+    .form-box h2 { font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:700; margin-bottom:var(--sp-8); }
+    .form-box p { font-size:14px; color:var(--text-2); margin-bottom:var(--sp-32); line-height:1.6; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-16); }
+    @media(max-width:500px){ .form-row{grid-template-columns:1fr;} }
+    .form-group { display:flex; flex-direction:column; gap:var(--sp-8); margin-bottom:var(--sp-16); }
+    .form-group label { font-size:13px; font-weight:600; color:var(--text-2); }
+    .form-group label span { color:var(--accent); }
+    .form-input { padding:12px var(--sp-16); border:1px solid var(--border-2); border-radius:var(--r-sm); font-size:14px; font-family:inherit; background:var(--bg); color:var(--text); transition:border-color 0.2s,box-shadow 0.2s; }
+    .form-input:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-dim); }
+    .form-select { appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%239a8e78' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; padding-right:40px; }
+    .form-check { display:flex; align-items:flex-start; gap:var(--sp-12); font-size:13px; color:var(--text-2); line-height:1.5; margin-bottom:var(--sp-24); }
+    .form-check input { accent-color:var(--accent); margin-top:2px; flex-shrink:0; }
+    .form-check a { color:var(--accent); text-decoration:underline; text-underline-offset:2px; }
+    .btn-submit { width:100%; padding:16px; background:var(--accent); color:#fff; font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:700; border-radius:var(--r-sm); cursor:pointer; transition:opacity 0.2s,transform 0.2s; }
+    .btn-submit:hover { opacity:0.88; transform:translateY(-1px); }
+
+    /* Login box */
+    .login-box { background:var(--surface-2); border:1px solid var(--border); border-radius:var(--r-lg); padding:var(--sp-48); }
+    .login-box h2 { font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:700; margin-bottom:var(--sp-8); }
+    .login-box p { font-size:14px; color:var(--text-2); margin-bottom:var(--sp-32); }
+    .divider { display:flex; align-items:center; gap:var(--sp-16); margin:var(--sp-24) 0; color:var(--text-3); font-size:13px; }
+    .divider::before,.divider::after { content:''; flex:1; height:1px; background:var(--border); }
+    .faq { margin-top:var(--sp-32); }
+    .faq-item { border-bottom:1px solid var(--border); }
+    .faq-q { width:100%; text-align:left; font-size:15px; font-weight:600; color:var(--text); padding:var(--sp-16) 0; display:flex; align-items:center; justify-content:space-between; cursor:pointer; background:none; border:none; font-family:inherit; }
+    .faq-q svg { flex-shrink:0; color:var(--text-3); transition:transform 0.2s; }
+    .faq-q.open svg { transform:rotate(180deg); }
+    .faq-a { font-size:14px; color:var(--text-2); line-height:1.7; padding-bottom:var(--sp-16); display:none; }
+    .faq-a.open { display:block; }
+
+    /* FOOTER slim */
+    .footer-slim { background:var(--surface-2); border-top:1px solid var(--border); padding:var(--sp-32); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--sp-16); }
+    .footer-slim-logo { font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:700; }
+    .footer-slim-logo span { color:var(--accent); }
+    .footer-slim-links { display:flex; gap:var(--sp-24); }
+    .footer-slim-links a { font-size:13px; color:var(--text-3); transition:color 0.2s; }
+    .footer-slim-links a:hover { color:var(--text); }
+    .footer-slim-copy { font-size:12px; color:var(--text-3); }
+  </style>
+</head>
+<body>
+
+  <div class="announcement">Jetzt Händlerkonto eröffnen &amp; 10% auf die erste Bestellung sichern →</div>
+
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">tex<span>-hub</span></a>
+      <div class="nav-links">
+        <a href="shop.html">Kategorien</a>
+        <a href="shop.html">Marken</a>
+        <a href="shop.html">Angebote <span class="nav-badge">SALE</span></a>
+        <a href="shop.html">Teamwear</a>
+      </div>
+      <div class="nav-right">
+        <a href="haendler.html" class="btn-outline" style="color:var(--accent);border-color:var(--accent)">Händler-Login</a>
+        <a href="#registrieren" class="btn-primary">Konto erstellen</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="haendler-hero">
+    <div class="haendler-hero-inner">
+      <div class="hero-eyebrow">B2B Großhandel · Exklusiv für Händler</div>
+      <h1>Ihr professionelles Handelskonto bei tex-hub</h1>
+      <p>Zugang zu über 15.000 Artikeln mit Mengenrabatten, Netto-Preisliste und persönlicher Beratung — kostenlos und ohne Mindestbestellmenge.</p>
+      <div class="hero-actions">
+        <a href="#registrieren" class="btn-white">Jetzt kostenlos registrieren</a>
+        <a href="#login" class="btn-ghost-white">Bereits Händler? Login</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div><div class="stat-num">5.000+</div><div class="stat-label">aktive Händler</div></div>
+      <div><div class="stat-num">15.000+</div><div class="stat-label">Artikel im Lager</div></div>
+      <div><div class="stat-num">48h</div><div class="stat-label">Lieferzeit Deutschland</div></div>
+      <div><div class="stat-num">200+</div><div class="stat-label">Marken &amp; Hersteller</div></div>
+    </div>
+  </div>
+
+  <!-- PERKS -->
+  <div class="perks">
+    <div class="section-label">Händler-Vorteile</div>
+    <h2 class="section-title">Was Ihr Konto <em>beinhaltet</em></h2>
+    <div class="perks-grid">
+      <div class="perk-card">
+        <div class="perk-icon">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="perk-title">Mengenrabatt ab 12 Stück</div>
+        <div class="perk-text">Gestaffelte Preise — je höher die Stückzahl, desto günstiger der Preis. Bis zu 50% unter UVP möglich.</div>
+      </div>
+      <div class="perk-card">
+        <div class="perk-icon">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <div class="perk-title">Kostenloser Versand ab 150 €</div>
+        <div class="perk-text">Alle Bestellungen über 150 € werden kostenfrei per DHL innerhalb Deutschlands geliefert.</div>
+      </div>
+      <div class="perk-card">
+        <div class="perk-icon">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+        </div>
+        <div class="perk-title">Netto-Rechnung &amp; Rechnungskauf</div>
+        <div class="perk-text">Netto-Preisliste mit ausgewiesener MwSt. Rechnungskauf auf Anfrage für qualifizierte Händler.</div>
+      </div>
+      <div class="perk-card">
+        <div class="perk-icon">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <div class="perk-title">Persönliche Beratung</div>
+        <div class="perk-text">Ihr direkter Ansprechpartner per Telefon und E-Mail — kein Callcenter, echte Fachkompetenz.</div>
+      </div>
+      <div class="perk-card">
+        <div class="perk-icon">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="perk-title">CSV / API Produktdaten-Export</div>
+        <div class="perk-text">Katalogart als CSV oder XML exportieren. API-Anbindung für ERP- und Shop-Systeme verfügbar.</div>
+      </div>
+      <div class="perk-card">
+        <div class="perk-icon">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="perk-title">Trusted Shops Käuferschutz</div>
+        <div class="perk-text">Zertifizierter Shop mit vollem Käuferschutz, transparenten AGB und 30 Tage Rückgaberecht.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRICING TABLE -->
+  <div class="pricing">
+    <div class="pricing-inner">
+      <div class="section-label">Preismodell</div>
+      <h2 class="section-title">Mengenpreise auf einen <em>Blick</em></h2>
+      <div class="pricing-table-wrap">
+        <table class="pricing-table">
+          <thead>
+            <tr>
+              <th>Menge / Stück</th>
+              <th>Einzelhandel</th>
+              <th class="accent">Händlerkonto</th>
+              <th>Großkunde (500+)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Preiskategorie</td>
+              <td>Endverbraucher-UVP</td>
+              <td class="accent">Staffelpreis (ab 12)</td>
+              <td>Auf Anfrage</td>
+            </tr>
+            <tr>
+              <td>Beispiel T-Shirt (UVP 5,90 €)</td>
+              <td>5,90 €</td>
+              <td class="accent">ab 2,68 € (−54%)</td>
+              <td>ab 1,95 €</td>
+            </tr>
+            <tr>
+              <td>Netto-Preisliste</td>
+              <td><span class="cross">✗</span></td>
+              <td class="accent"><span class="check">✓</span></td>
+              <td><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td>Rechnungskauf</td>
+              <td><span class="cross">✗</span></td>
+              <td class="accent">auf Anfrage</td>
+              <td><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td>Kostenloser Versand</td>
+              <td>ab 150 €</td>
+              <td class="accent"><span class="check">✓ ab 150 €</span></td>
+              <td><span class="check">✓ immer</span></td>
+            </tr>
+            <tr>
+              <td>CSV / API Export</td>
+              <td><span class="cross">✗</span></td>
+              <td class="accent"><span class="check">✓</span></td>
+              <td><span class="check">✓ + Webhook</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORM + LOGIN -->
+  <div class="form-section" id="registrieren">
+    <div class="form-box">
+      <h2>Jetzt Händlerkonto erstellen</h2>
+      <p>Kostenlos, unverbindlich, sofort aktiv. Füllen Sie das Formular aus — wir aktivieren Ihr Konto innerhalb von 24 Stunden.</p>
+      <form onsubmit="return false">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Vorname <span>*</span></label>
+            <input class="form-input" type="text" placeholder="Max" required/>
+          </div>
+          <div class="form-group">
+            <label>Nachname <span>*</span></label>
+            <input class="form-input" type="text" placeholder="Mustermann" required/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Firmenname <span>*</span></label>
+          <input class="form-input" type="text" placeholder="Muster GmbH" required/>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>USt-IdNr. / UID</label>
+            <input class="form-input" type="text" placeholder="DE123456789"/>
+          </div>
+          <div class="form-group">
+            <label>Handelsregister-Nr.</label>
+            <input class="form-input" type="text" placeholder="HRB 12345"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Geschäfts-E-Mail <span>*</span></label>
+          <input class="form-input" type="email" placeholder="info@firma.de" required/>
+        </div>
+        <div class="form-group">
+          <label>Telefon</label>
+          <input class="form-input" type="tel" placeholder="+49 89 12345678"/>
+        </div>
+        <div class="form-group">
+          <label>Branche <span>*</span></label>
+          <select class="form-input form-select" required>
+            <option value="">Bitte wählen…</option>
+            <option>Druckerei / Siebdruck</option>
+            <option>Stickerei</option>
+            <option>Werbeagentur / Merchandising</option>
+            <option>Sportverein / Teamwear</option>
+            <option>Online-Händler / Reseller</option>
+            <option>Workwear / Berufsbekleidung</option>
+            <option>Sonstiges</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Monatlicher Bedarf (Stück)</label>
+          <select class="form-input form-select">
+            <option>Unter 100</option>
+            <option>100–500</option>
+            <option>500–2.000</option>
+            <option>Über 2.000</option>
+          </select>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="agb" required/>
+          <label for="agb">Ich habe die <a href="#">AGB</a> und <a href="#">Datenschutzerklärung</a> gelesen und akzeptiere diese. <span style="color:var(--accent)">*</span></label>
+        </div>
+        <button type="submit" class="btn-submit">Händlerkonto beantragen →</button>
+      </form>
+    </div>
+
+    <div>
+      <div class="login-box" id="login">
+        <h2>Bereits Händler?</h2>
+        <p>Melden Sie sich mit Ihren Zugangsdaten an und profitieren Sie sofort von Ihren Konditionen.</p>
+        <form onsubmit="return false">
+          <div class="form-group">
+            <label>E-Mail</label>
+            <input class="form-input" type="email" placeholder="info@firma.de"/>
+          </div>
+          <div class="form-group">
+            <label>Passwort</label>
+            <input class="form-input" type="password" placeholder="••••••••"/>
+          </div>
+          <div style="display:flex;justify-content:flex-end;margin-bottom:var(--sp-24)">
+            <a href="#" style="font-size:13px;color:var(--accent);text-decoration:underline;text-underline-offset:2px">Passwort vergessen?</a>
+          </div>
+          <button type="submit" class="btn-submit">Einloggen</button>
+        </form>
+      </div>
+
+      <!-- FAQ -->
+      <div class="faq" style="margin-top:var(--sp-32)">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;margin-bottom:var(--sp-16)">Häufige Fragen</div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Wie lange dauert die Kontoaktivierung?
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a">Nach dem Absenden des Formulars prüfen wir Ihre Daten und aktivieren das Konto in der Regel innerhalb von 24 Stunden (Werktage).</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Gibt es eine Mindestbestellmenge?
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a">Nein, es gibt keine Mindestbestellmenge. Mengenrabatte starten ab 12 Stück pro Artikel/Farbe.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Kann ich auch auf Rechnung bestellen?
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a">Rechnungskauf ist für qualifizierte Händler auf Anfrage verfügbar. Bitte wenden Sie sich dazu an unseren Kundenservice.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Bekomme ich eine Netto-Preisliste?
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-a">Ja, nach Aktivierung Ihres Händlerkontos erhalten Sie Zugang zur vollständigen Netto-Preisliste als PDF und CSV-Download.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer-slim">
+    <div class="footer-slim-logo">tex<span>-hub</span></div>
+    <div class="footer-slim-links">
+      <a href="#">AGB</a><a href="#">Datenschutz</a><a href="#">Impressum</a><a href="about.html#kontakt">Kontakt</a>
+    </div>
+    <div class="footer-slim-copy">© 2026 tex-hub.pro</div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 20), { passive: true });
+
+    function toggleFaq(btn) {
+      const answer = btn.nextElementSibling;
+      const isOpen = answer.classList.contains('open');
+      document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+      document.querySelectorAll('.faq-q').forEach(b => b.classList.remove('open'));
+      if (!isOpen) { answer.classList.add('open'); btn.classList.add('open'); }
+    }
+  </script>
+</body>
+</html>

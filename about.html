@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Über uns — tex-hub Textil Großhandel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    img  { display:block; max-width:100%; }
+    a    { text-decoration:none; color:inherit; }
+    button { font-family:inherit; cursor:pointer; border:none; background:none; }
+
+    :root {
+      --bg:#f5f0e8; --surface:#faf7f2; --surface-2:#ffffff;
+      --border:rgba(80,60,20,0.12); --border-2:rgba(80,60,20,0.22);
+      --accent:#2a6e4e; --accent-lt:#3a8f65; --accent-dim:rgba(42,110,78,0.10);
+      --gold:#c8860a;
+      --text:#1c1a16; --text-2:#5a5040; --text-3:#9a8e78;
+      --shadow-sm:0 2px 8px rgba(80,60,20,0.08);
+      --shadow-md:0 8px 24px rgba(80,60,20,0.12);
+      --r-sm:8px; --r:12px; --r-lg:20px; --r-pill:100px;
+      --sp-4:4px;--sp-8:8px;--sp-12:12px;--sp-16:16px;
+      --sp-24:24px;--sp-32:32px;--sp-48:48px;--sp-64:64px;--sp-96:96px;
+    }
+    body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+
+    /* NAV */
+    .announcement { background:var(--accent); color:#fff; text-align:center; padding:var(--sp-8) var(--sp-16); font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; }
+    .nav { position:sticky; top:0; z-index:100; background:rgba(245,240,232,0.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); transition:box-shadow 0.3s; }
+    .nav.scrolled { box-shadow:var(--shadow-md); }
+    .nav-inner { display:flex; align-items:center; gap:var(--sp-32); height:68px; max-width:1280px; margin:0 auto; padding:0 var(--sp-32); }
+    .nav-logo { font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; letter-spacing:-0.02em; }
+    .nav-logo span { color:var(--accent); }
+    .nav-links { display:flex; align-items:center; gap:var(--sp-4); flex:1; }
+    .nav-links a { font-size:14px; font-weight:500; color:var(--text-2); padding:var(--sp-8) var(--sp-12); border-radius:var(--r-sm); transition:color 0.2s,background 0.2s; }
+    .nav-links a:hover { color:var(--accent); background:var(--accent-dim); }
+    .nav-badge { font-size:10px; font-weight:700; background:var(--gold); color:#fff; padding:2px 7px; border-radius:var(--r-pill); margin-left:var(--sp-4); }
+    .nav-right { display:flex; align-items:center; gap:var(--sp-12); flex-shrink:0; }
+    .btn-outline { font-size:13px; font-weight:600; color:var(--text-2); padding:8px 18px; border:1px solid var(--border-2); border-radius:var(--r-pill); transition:all 0.2s; }
+    .btn-outline:hover { color:var(--accent); border-color:var(--accent); }
+    .btn-primary { font-size:13px; font-weight:700; color:#fff; background:var(--accent); padding:9px 20px; border-radius:var(--r-pill); transition:opacity 0.2s,transform 0.2s; cursor:pointer; }
+    .btn-primary:hover { opacity:0.88; transform:translateY(-1px); }
+    @media(max-width:768px){ .nav-links,.btn-outline{display:none;} .nav-inner{padding:0 var(--sp-16);} }
+
+    /* PAGE HERO */
+    .page-hero {
+      max-width:1280px; margin:0 auto; padding:var(--sp-64) var(--sp-32) var(--sp-48);
+      display:grid; grid-template-columns:1.1fr 0.9fr; gap:var(--sp-64); align-items:center;
+    }
+    @media(max-width:900px){ .page-hero{grid-template-columns:1fr;gap:var(--sp-32);padding:var(--sp-48) var(--sp-16);} }
+    .page-hero-img { border-radius:var(--r-lg); overflow:hidden; aspect-ratio:4/3; }
+    .page-hero-img img { width:100%; height:100%; object-fit:cover; }
+    .eyebrow { font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent); margin-bottom:var(--sp-16); }
+    .page-hero h1 { font-family:'Space Grotesk',sans-serif; font-size:clamp(30px,4vw,52px); font-weight:700; letter-spacing:-0.02em; line-height:1.1; color:var(--text); margin-bottom:var(--sp-16); }
+    .page-hero h1 em { font-style:normal; color:var(--accent); }
+    .page-hero p { font-size:17px; line-height:1.8; color:var(--text-2); margin-bottom:var(--sp-32); }
+    .hero-chips { display:flex; flex-wrap:wrap; gap:var(--sp-8); }
+    .chip { font-size:13px; font-weight:600; color:var(--accent); background:var(--accent-dim); border:1px solid rgba(42,110,78,0.2); padding:6px 14px; border-radius:var(--r-pill); }
+
+    /* STORY */
+    .story { background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:var(--sp-96) var(--sp-32); }
+    .story-inner { max-width:1280px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-64); align-items:start; }
+    @media(max-width:900px){ .story-inner{grid-template-columns:1fr;gap:var(--sp-32);padding:0 var(--sp-4);} .story{padding:var(--sp-64) var(--sp-16);} }
+    .section-label { font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent); margin-bottom:var(--sp-12); }
+    .section-title { font-family:'Space Grotesk',sans-serif; font-size:clamp(26px,2.8vw,38px); font-weight:700; letter-spacing:-0.02em; color:var(--text); margin-bottom:var(--sp-24); }
+    .section-title em { font-style:normal; color:var(--accent); }
+    .story-text p { font-size:15px; line-height:1.85; color:var(--text-2); margin-bottom:var(--sp-16); }
+    .timeline { position:relative; padding-left:var(--sp-32); }
+    .timeline::before { content:''; position:absolute; left:7px; top:0; bottom:0; width:2px; background:var(--border-2); }
+    .tl-item { position:relative; margin-bottom:var(--sp-32); }
+    .tl-dot { position:absolute; left:-30px; top:4px; width:14px; height:14px; border-radius:50%; background:var(--accent); border:2px solid var(--bg); }
+    .tl-year { font-size:11px; font-weight:700; color:var(--accent); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:var(--sp-4); }
+    .tl-title { font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:700; color:var(--text); margin-bottom:var(--sp-4); }
+    .tl-text { font-size:14px; line-height:1.7; color:var(--text-2); }
+
+    /* VALUES */
+    .values { max-width:1280px; margin:0 auto; padding:var(--sp-96) var(--sp-32); }
+    @media(max-width:768px){ .values{padding:var(--sp-64) var(--sp-16);} }
+    .values-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:var(--sp-24); margin-top:var(--sp-48); }
+    @media(max-width:900px){ .values-grid{grid-template-columns:repeat(2,1fr);} }
+    @media(max-width:500px){ .values-grid{grid-template-columns:1fr;} }
+    .value-card { text-align:center; padding:var(--sp-32) var(--sp-24); background:var(--surface-2); border:1px solid var(--border); border-radius:var(--r-lg); }
+    .value-icon { font-size:32px; margin-bottom:var(--sp-16); }
+    .value-title { font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:700; color:var(--text); margin-bottom:var(--sp-8); }
+    .value-text { font-size:13px; line-height:1.7; color:var(--text-2); }
+
+    /* TEAM */
+    .team { background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:var(--sp-96) var(--sp-32); }
+    .team-inner { max-width:1280px; margin:0 auto; }
+    @media(max-width:768px){ .team{padding:var(--sp-64) var(--sp-16);} }
+    .team-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:var(--sp-32); margin-top:var(--sp-48); }
+    @media(max-width:900px){ .team-grid{grid-template-columns:repeat(2,1fr);} }
+    @media(max-width:560px){ .team-grid{grid-template-columns:1fr;} }
+    .team-card { background:var(--surface-2); border:1px solid var(--border); border-radius:var(--r-lg); overflow:hidden; }
+    .team-img { aspect-ratio:1; overflow:hidden; }
+    .team-img img { width:100%; height:100%; object-fit:cover; filter:grayscale(20%); transition:filter 0.3s; }
+    .team-card:hover .team-img img { filter:grayscale(0%); }
+    .team-info { padding:var(--sp-24); }
+    .team-name { font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:700; color:var(--text); }
+    .team-role { font-size:13px; color:var(--accent); font-weight:600; margin-top:var(--sp-4); margin-bottom:var(--sp-8); }
+    .team-bio { font-size:13px; line-height:1.7; color:var(--text-2); }
+
+    /* CONTACT */
+    .contact { max-width:1280px; margin:0 auto; padding:var(--sp-96) var(--sp-32); display:grid; grid-template-columns:1fr 1.4fr; gap:var(--sp-64); }
+    @media(max-width:900px){ .contact{grid-template-columns:1fr;gap:var(--sp-32);padding:var(--sp-64) var(--sp-16);} }
+    .contact-info h2 { font-family:'Space Grotesk',sans-serif; font-size:32px; font-weight:700; letter-spacing:-0.02em; margin-bottom:var(--sp-24); }
+    .contact-items { display:flex; flex-direction:column; gap:var(--sp-24); margin-bottom:var(--sp-32); }
+    .contact-item { display:flex; gap:var(--sp-16); align-items:flex-start; }
+    .contact-ico { width:40px; height:40px; background:var(--accent-dim); border:1px solid rgba(42,110,78,0.2); border-radius:var(--r); display:flex; align-items:center; justify-content:center; color:var(--accent); flex-shrink:0; }
+    .contact-label { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-3); margin-bottom:var(--sp-4); }
+    .contact-val { font-size:15px; color:var(--text); }
+    .contact-val a { color:var(--accent); }
+    .hours-table { font-size:14px; color:var(--text-2); border-collapse:collapse; }
+    .hours-table td { padding:4px 16px 4px 0; }
+    .hours-table td:first-child { font-weight:600; color:var(--text); }
+
+    .contact-form { background:var(--surface-2); border:1px solid var(--border); border-radius:var(--r-lg); padding:var(--sp-48); }
+    .contact-form h3 { font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; margin-bottom:var(--sp-24); }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-16); }
+    @media(max-width:500px){ .form-row{grid-template-columns:1fr;} }
+    .form-group { display:flex; flex-direction:column; gap:var(--sp-8); margin-bottom:var(--sp-16); }
+    .form-group label { font-size:13px; font-weight:600; color:var(--text-2); }
+    .form-input { padding:12px var(--sp-16); border:1px solid var(--border-2); border-radius:var(--r-sm); font-size:14px; font-family:inherit; background:var(--bg); color:var(--text); transition:border-color 0.2s,box-shadow 0.2s; }
+    .form-input:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-dim); }
+    textarea.form-input { resize:vertical; min-height:120px; }
+    .btn-submit { padding:14px 28px; background:var(--accent); color:#fff; font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:700; border-radius:var(--r-sm); cursor:pointer; transition:opacity 0.2s,transform 0.2s; }
+    .btn-submit:hover { opacity:0.88; transform:translateY(-1px); }
+
+    /* FOOTER slim */
+    .footer-slim { background:var(--surface-2); border-top:1px solid var(--border); padding:var(--sp-32); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--sp-16); }
+    .footer-slim-logo { font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:700; }
+    .footer-slim-logo span { color:var(--accent); }
+    .footer-slim-links { display:flex; gap:var(--sp-24); flex-wrap:wrap; }
+    .footer-slim-links a { font-size:13px; color:var(--text-3); transition:color 0.2s; }
+    .footer-slim-links a:hover { color:var(--text); }
+    .footer-slim-copy { font-size:12px; color:var(--text-3); }
+  </style>
+</head>
+<body>
+
+  <div class="announcement">Kostenloser Versand ab 150 € · 48h Lieferzeit · Händlerkonten kostenlos eröffnen →</div>
+
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">tex<span>-hub</span></a>
+      <div class="nav-links">
+        <a href="shop.html">Kategorien</a>
+        <a href="shop.html">Marken</a>
+        <a href="shop.html">Angebote <span class="nav-badge">SALE</span></a>
+        <a href="shop.html">Teamwear</a>
+      </div>
+      <div class="nav-right">
+        <a href="haendler.html" class="btn-outline">Händler-Login</a>
+        <a href="haendler.html#registrieren" class="btn-primary">Konto erstellen</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-text">
+      <div class="eyebrow">Über tex-hub</div>
+      <h1>Ihr Partner für <em>Textil-Großhandel</em> in Deutschland</h1>
+      <p>Seit 2011 versorgen wir Druckereien, Agenturen, Händler und Sportvereine mit hochwertiger Bekleidung — direkt aus dem Lager, ohne Umwege.</p>
+      <div class="hero-chips">
+        <span class="chip">Gegründet 2011</span>
+        <span class="chip">5.000+ Händler</span>
+        <span class="chip">Hamburg</span>
+        <span class="chip">48h Lieferung</span>
+      </div>
+    </div>
+    <div class="page-hero-img">
+      <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80" alt="Textillager tex-hub"/>
+    </div>
+  </div>
+
+  <!-- STORY -->
+  <div class="story">
+    <div class="story-inner">
+      <div class="story-text">
+        <div class="section-label">Unsere Geschichte</div>
+        <h2 class="section-title">Vom kleinen B2B-Shop zum führenden <em>Textil-Profi</em></h2>
+        <p>Alles begann 2011 mit einem einfachen Gedanken: Druckereien und Händler brauchen einen verlässlichen Partner, der schnell liefert, faire Preise bietet und Qualität nicht als Selbstverständlichkeit, sondern als Versprechen begreift.</p>
+        <p>Heute betreiben wir ein voll automatisiertes Lager in Hamburg mit über 15.000 aktiven Artikeln von mehr als 200 namhaften Marken — von Gildan und Fruit of the Loom bis Kariban und Stanley/Stella.</p>
+        <p>Unser Team aus 40 Mitarbeitenden sorgt dafür, dass jede Bestellung innerhalb von 48 Stunden Deutschland verlässt — mit Tracking, aktualisiertem Lagerbestand in Echtzeit und einem persönlichen Ansprechpartner für jeden Händler.</p>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2011</div>
+          <div class="tl-title">Gründung in Hamburg</div>
+          <div class="tl-text">Start als B2B-Onlineshop mit 500 Artikeln und 3 Mitarbeitenden.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2014</div>
+          <div class="tl-title">Eigenes Lager &amp; Logistik</div>
+          <div class="tl-text">Umzug in eigenes 3.000 m² Lager. Einführung des 48h-Versandversprechen.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2018</div>
+          <div class="tl-title">15.000+ Artikel &amp; API</div>
+          <div class="tl-text">Vollständige Digitalisierung: Echtzeit-Lagerbestand, CSV-Export und Shop-API für alle Händler.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2023</div>
+          <div class="tl-title">5.000 aktive Händlerkonten</div>
+          <div class="tl-text">Europäische Expansion: Versand nach Österreich, Schweiz und BeNeLux.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VALUES -->
+  <div class="values">
+    <div class="section-label">Unsere Werte</div>
+    <h2 class="section-title">Was uns <em>antreibt</em></h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">⚡</div>
+        <div class="value-title">Geschwindigkeit</div>
+        <div class="value-text">Bestellungen bis 14:00 Uhr verlassen am gleichen Tag das Lager.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🎯</div>
+        <div class="value-title">Zuverlässigkeit</div>
+        <div class="value-text">Echtzeit-Lagerbestand, keine Phantombestände — was angezeigt wird, ist verfügbar.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🤝</div>
+        <div class="value-title">Partnerschaft</div>
+        <div class="value-text">Kein Callcenter. Echter Ansprechpartner für jeden Händler — persönlich erreichbar.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">♻️</div>
+        <div class="value-title">Nachhaltigkeit</div>
+        <div class="value-text">Wachsendes Sortiment an GOTS-zertifizierten und recycelten Textilien.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEAM -->
+  <div class="team">
+    <div class="team-inner">
+      <div class="section-label">Das Team</div>
+      <h2 class="section-title">Echte Menschen hinter <em>tex-hub</em></h2>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-img">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80" alt="Geschäftsführer"/>
+          </div>
+          <div class="team-info">
+            <div class="team-name">Marcus Köhler</div>
+            <div class="team-role">Gründer &amp; Geschäftsführer</div>
+            <div class="team-bio">15 Jahre Erfahrung im Textilhandel. Verantwortlich für Einkauf und Partnermarken.</div>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-img">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80" alt="Kundenservice"/>
+          </div>
+          <div class="team-info">
+            <div class="team-name">Sandra Bremer</div>
+            <div class="team-role">Leiterin Kundenservice</div>
+            <div class="team-bio">Ihr direkter Kontakt für Händleranfragen, Sonderbestellungen und Reklamationen.</div>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-img">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="Logistik"/>
+          </div>
+          <div class="team-info">
+            <div class="team-name">Tobias Renz</div>
+            <div class="team-role">Logistik &amp; Lager</div>
+            <div class="team-bio">Stellt sicher, dass Ihre Bestellung pünktlich und vollständig ankommt — jeden Tag.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact" id="kontakt">
+    <div class="contact-info">
+      <div class="section-label">Kontakt</div>
+      <h2>Sprechen Sie uns an</h2>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-ico">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">Adresse</div>
+            <div class="contact-val">Großhandelsring 14, 22047 Hamburg, Deutschland</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-ico">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 13a19.79 19.79 0 01-3.07-8.67A2 2 0 012 2.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">Telefon</div>
+            <div class="contact-val"><a href="tel:+4940123456789">+49 40 123 456 789</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-ico">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">E-Mail</div>
+            <div class="contact-val"><a href="mailto:info@tex-hub.pro">info@tex-hub.pro</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-label" style="margin-bottom:var(--sp-12)">Öffnungszeiten</div>
+      <table class="hours-table">
+        <tr><td>Mo – Fr</td><td>08:00 – 18:00 Uhr</td></tr>
+        <tr><td>Samstag</td><td>Auf Anfrage</td></tr>
+        <tr><td>Sonn- &amp; Feiertage</td><td>geschlossen</td></tr>
+      </table>
+    </div>
+
+    <div class="contact-form">
+      <h3>Nachricht senden</h3>
+      <form onsubmit="return false">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Vorname</label>
+            <input class="form-input" type="text" placeholder="Max"/>
+          </div>
+          <div class="form-group">
+            <label>Nachname</label>
+            <input class="form-input" type="text" placeholder="Mustermann"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>E-Mail</label>
+          <input class="form-input" type="email" placeholder="max@firma.de"/>
+        </div>
+        <div class="form-group">
+          <label>Betreff</label>
+          <input class="form-input" type="text" placeholder="Händlerkonto, Produktanfrage, …"/>
+        </div>
+        <div class="form-group">
+          <label>Nachricht</label>
+          <textarea class="form-input" placeholder="Ihre Frage oder Anfrage…"></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Nachricht senden →</button>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer-slim">
+    <div class="footer-slim-logo">tex<span>-hub</span></div>
+    <div class="footer-slim-links">
+      <a href="#">AGB</a><a href="#">Datenschutz</a><a href="#">Impressum</a><a href="about.html">Über uns</a>
+    </div>
+    <div class="footer-slim-copy">© 2026 tex-hub.pro · Großhandelsring 14, 22047 Hamburg</div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 20), { passive: true });
+  </script>
+</body>
+</html>
