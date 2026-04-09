@@ -243,22 +243,31 @@
     .footer-slim-copy { font-size:12px; color:var(--text-3); }
 
     /* ═══════════════════════════════════════
+       RESPONSIVE — mobile nav body offset
+       (pill nav is position:fixed at ≤640px,
+       so push body down to prevent overlap)
+    ═══════════════════════════════════════ */
+    @media(max-width:640px){
+      body { padding-top:84px; }
+    }
+
+    /* ═══════════════════════════════════════
        RESPONSIVE — tablet 768px
     ═══════════════════════════════════════ */
     @media(max-width:768px){
       .breadcrumb { padding:var(--sp-12) var(--sp-16); }
-      .product-wrap { padding:0 var(--sp-16) var(--sp-48); gap:var(--sp-32); }
-      .gallery-thumbs { gap:var(--sp-8); }
-      .gallery-thumb { width:60px; height:76px; }
+      .product-wrap { padding:0 var(--sp-16) var(--sp-48); gap:var(--sp-24); }
+      /* cap gallery height on tablet — avoids very tall single-col image */
+      .gallery-main { aspect-ratio:1/1; max-height:420px; }
+      .gallery-thumb { width:64px; height:64px; }
       .prod-title { font-size:22px; }
       .price-main { font-size:26px; }
       .bulk-table th,.bulk-table td { padding:7px 10px; font-size:12px; }
       .matrix-header-row,.matrix-row { padding:7px 10px; }
-      .matrix-qty-wrap { width:100px; }
+      .matrix-qty-wrap { width:100px; height:36px; }
       .order-bar { gap:var(--sp-12); }
       .order-bar-actions { width:100%; }
       .btn-add-cart { flex:1; justify-content:center; }
-      .related { padding:0 var(--sp-16) var(--sp-48); }
       .related-title { font-size:20px; }
       .footer-slim { padding:var(--sp-24) var(--sp-16); }
       .footer-slim-links { gap:var(--sp-16); }
@@ -268,67 +277,74 @@
        RESPONSIVE — mobile 480px
     ═══════════════════════════════════════ */
     @media(max-width:480px){
-      .announcement { font-size:11px; padding:6px var(--sp-12); }
-      .breadcrumb { font-size:11px; gap:4px; }
-      .product-wrap { padding:0 var(--sp-12) var(--sp-32); gap:var(--sp-24); }
+      /* Announcement bar off */
+      .announcement { display:none; }
 
-      /* Gallery: horizontal scroll thumbs on mobile */
-      .gallery-main { aspect-ratio:1/1; border-radius:var(--r); }
+      /* Breadcrumb */
+      .breadcrumb { padding:var(--sp-8) var(--sp-12); font-size:11px; gap:4px; }
+
+      /* Layout */
+      .product-wrap { padding:0 var(--sp-12) var(--sp-32); gap:var(--sp-16); }
+
+      /* Gallery */
+      .gallery-main { aspect-ratio:1/1; max-height:360px; border-radius:var(--r); }
       .gallery-thumbs { overflow-x:auto; flex-wrap:nowrap; padding-bottom:4px; scrollbar-width:none; }
       .gallery-thumbs::-webkit-scrollbar { display:none; }
-      .gallery-thumb { width:52px; height:66px; flex-shrink:0; }
+      .gallery-thumb { width:56px; height:56px; flex-shrink:0; }
 
       /* Product info */
-      .prod-badges { gap:var(--sp-4); }
+      .prod-badges { gap:4px; }
       .prod-badge { font-size:10px; padding:2px 8px; }
       .prod-title { font-size:20px; margin-bottom:var(--sp-12); }
-      .prod-rating { flex-wrap:wrap; gap:var(--sp-4); margin-bottom:var(--sp-16); }
-      .rating-link { font-size:12px; }
-      .price-block { gap:var(--sp-8); margin-bottom:var(--sp-4); }
-      .price-main { font-size:24px; }
+      .prod-rating { flex-wrap:wrap; gap:4px; margin-bottom:var(--sp-16); }
+      .price-main { font-size:22px; }
 
       /* Bulk table: horizontal scroll */
-      .bulk-table { font-size:12px; display:block; overflow-x:auto; white-space:nowrap; }
+      .bulk-table { font-size:12px; display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; white-space:nowrap; }
 
-      /* Swatch grid: 5 per row on mobile */
+      /* Swatches */
       .swatch-grid { grid-template-columns:repeat(5,1fr); gap:6px; }
       .swatch-circle { width:30px; height:30px; }
       .swatch-name { font-size:8px; }
 
-      /* Matrix: tighter columns */
-      .matrix-header-row,.matrix-row { grid-template-columns:40px 1fr 1fr 96px; gap:2px; padding:6px 8px; }
+      /* Matrix: switch from overflow:hidden → overflow-x:auto so it can
+         scroll horizontally on tiny screens; use fixed px cols so the
+         qty stepper never collapses below its usable minimum width */
+      .matrix-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+      .matrix-header-row,.matrix-row { grid-template-columns:44px 78px 78px 100px; gap:0; padding:7px 8px; }
+      .matrix-header-row span { font-size:9px; }
       .matrix-size { font-size:13px; }
       .matrix-stock { font-size:11px; }
-      .matrix-qty-wrap { width:92px; }
-      .mq-btn { width:26px; }
-      .mq-input { font-size:12px; }
+      .matrix-qty-wrap { width:98px; height:34px; }
+      .mq-btn { width:28px; height:34px; font-size:16px; }
+      .mq-input { height:34px; font-size:12px; }
 
-      /* Stock legend: wrap tighter */
+      /* Stock legend */
       .stock-legend { gap:var(--sp-8); }
 
-      /* Order bar: stacked layout */
+      /* Order bar: stack stats above actions row */
       .order-bar { flex-direction:column; align-items:stretch; gap:var(--sp-12); padding:var(--sp-12); }
       .order-bar-div { display:none; }
-      .order-bar-stats { display:flex; gap:var(--sp-24); }
-      .order-stat { min-width:0; }
       .order-stat-val { font-size:18px; }
-      .order-bar-actions { margin-left:0; }
-      .btn-add-cart { width:100%; height:52px; font-size:15px; justify-content:center; }
+      /* Keep wishlist + cart on ONE row: wishlist shrinks, cart expands */
+      .order-bar-actions { display:flex; gap:var(--sp-8); margin-left:0; }
+      .btn-wishlist { flex-shrink:0; }
+      .btn-add-cart { flex:1; height:50px; font-size:14px; justify-content:center; }
 
       /* Trust row */
-      .trust-row { gap:var(--sp-12); padding:var(--sp-12); }
+      .trust-row { gap:var(--sp-8); padding:var(--sp-12); }
       .trust-item { font-size:11px; }
 
       /* Tabs */
-      .tab-btn { font-size:13px; padding:10px var(--sp-16); }
+      .tab-btn { font-size:12px; padding:10px var(--sp-12); }
       .spec-table td { padding:8px var(--sp-8); font-size:13px; }
 
       /* Related */
-      .related-grid { grid-template-columns:repeat(2,1fr); gap:var(--sp-8); }
+      .related { padding:0 var(--sp-12) var(--sp-48); }
       .related-title { font-size:18px; margin-bottom:var(--sp-16); }
+      .related-grid { grid-template-columns:repeat(2,1fr); gap:var(--sp-8); }
       .rel-card-info { padding:var(--sp-8); }
-      .rel-name { font-size:13px; }
-      .rel-price { font-size:13px; }
+      .rel-name,.rel-price { font-size:13px; }
 
       /* Footer */
       .footer-slim { flex-direction:column; align-items:flex-start; gap:var(--sp-12); padding:var(--sp-16) var(--sp-12); }
@@ -340,13 +356,17 @@
        RESPONSIVE — tiny 360px
     ═══════════════════════════════════════ */
     @media(max-width:360px){
+      .product-wrap { padding:0 var(--sp-8) var(--sp-32); }
+      .prod-title { font-size:18px; }
       .swatch-grid { grid-template-columns:repeat(4,1fr); }
-      .matrix-header-row,.matrix-row { grid-template-columns:36px 60px 60px 88px; padding:5px 6px; }
-      .matrix-qty-wrap { width:86px; }
+      .swatch-circle { width:28px; height:28px; }
+      /* at 360px the fixed-col matrix still fits (344px avail > 300px used);
+         keeping same fixed cols ensures no layout shift */
+      .matrix-header-row,.matrix-row { grid-template-columns:40px 72px 72px 94px; padding:6px; }
+      .matrix-qty-wrap { width:92px; height:32px; }
+      .mq-btn { width:26px; height:32px; }
+      .mq-input { height:32px; }
     }
-    .footer-slim-links a { font-size:13px; color:var(--text-3); transition:color 0.2s; }
-    .footer-slim-links a:hover { color:var(--text); }
-    .footer-slim-copy { font-size:12px; color:var(--text-3); }
   </style>
 </head>
 <body>
