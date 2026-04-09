@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Shop — Tex-Hub Textil Großhandel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior:smooth; }
@@ -14,22 +14,22 @@
     button { font-family:inherit; cursor:pointer; border:none; background:none; }
     ul   { list-style:none; }
 
-    /* ── TOKENS (biscuit/warm palette) ── */
+    /* ── TOKENS (brand guide: Deep Ink + Hub Red) ── */
     :root {
-      --bg:        #f5f0e8;
-      --surface:   #faf7f2;
+      --bg:        #F7F2EE;
+      --surface:   #F7F2EE;
       --surface-2: #ffffff;
-      --border:    rgba(80,60,20,0.12);
-      --border-2:  rgba(80,60,20,0.22);
-      --accent:    #2a6e4e;
-      --accent-lt: #3a8f65;
-      --accent-dim:rgba(42,110,78,0.10);
-      --gold:      #c8860a;
-      --text:      #1c1a16;
-      --text-2:    #5a5040;
-      --text-3:    #9a8e78;
-      --shadow-sm: 0 2px 8px rgba(80,60,20,0.08);
-      --shadow-md: 0 8px 24px rgba(80,60,20,0.12);
+      --border:    rgba(216,209,203,0.60);
+      --border-2:  #D8D1CB;
+      --accent:    #96000D;
+      --accent-lt: #B4232E;
+      --accent-dim:rgba(150,0,13,0.09);
+      --gold:      #B4232E;
+      --text:      #22252B;
+      --text-2:    #4A4F57;
+      --text-3:    #888E95;
+      --shadow-sm: 0 2px 8px rgba(34,37,43,0.06);
+      --shadow-md: 0 8px 24px rgba(34,37,43,0.10);
       --r-sm:8px; --r:12px; --r-lg:20px; --r-pill:100px;
       --sp-4:4px;--sp-8:8px;--sp-12:12px;--sp-16:16px;
       --sp-24:24px;--sp-32:32px;--sp-48:48px;--sp-64:64px;
@@ -37,32 +37,35 @@
 
     body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
 
-    /* ── NAV (floating pill) ── */
-    .announcement { background:var(--accent); color:#fff; text-align:center; padding:var(--sp-8) var(--sp-16); font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; letter-spacing:0.04em; }
-    .nav { position:fixed; top:24px; left:50%; transform:translateX(-50%); z-index:200; display:flex; flex-direction:column; align-items:center; padding:12px 24px; background:rgba(31,31,31,0.72); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid #333; border-radius:9999px; width:calc(100% - 2rem); max-width:820px; transition:border-radius 0.3s ease; }
-    .nav.menu-open { border-radius:20px; }
-    .nav-inner { display:flex; align-items:center; justify-content:space-between; width:100%; gap:24px; }
-    .nav-logo { position:relative; width:20px; height:20px; flex-shrink:0; }
+    /* ── NAV: desktop = full-width sticky ── */
+    .announcement { background:var(--accent); color:#fff; text-align:center; padding:var(--sp-8) var(--sp-16); font-family:'IBM Plex Sans',sans-serif; font-size:13px; font-weight:600; letter-spacing:0.04em; position:relative; z-index:201; }
+    .nav { position:sticky; top:0; left:0; z-index:200; width:100%; max-width:none; background:rgba(247,242,238,0.96); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid var(--border-2); border-radius:0; padding:0; display:flex; flex-direction:column; align-items:stretch; transform:none; transition:box-shadow 0.25s; }
+    .nav.scrolled { box-shadow:var(--shadow-md); }
+    .nav-inner { display:flex; align-items:center; justify-content:space-between; width:100%; max-width:1280px; margin:0 auto; padding:0 var(--sp-32); height:64px; gap:24px; }
+    .nav-logo { position:static; display:flex; align-items:center; gap:8px; width:auto; height:auto; flex-shrink:0; }
+    .nav-logo-icon { position:relative; width:20px; height:20px; flex-shrink:0; display:none; }
     .nav-logo-dot { position:absolute; width:6px; height:6px; border-radius:50%; background:rgba(220,220,220,0.85); }
     .nav-logo-dot:nth-child(1) { top:0; left:50%; transform:translateX(-50%); }
     .nav-logo-dot:nth-child(2) { left:0; top:50%; transform:translateY(-50%); }
     .nav-logo-dot:nth-child(3) { right:0; top:50%; transform:translateY(-50%); }
     .nav-logo-dot:nth-child(4) { bottom:0; left:50%; transform:translateX(-50%); }
+    .nav-logo-text { font-family:'IBM Plex Sans',sans-serif; font-size:17px; font-weight:700; letter-spacing:-0.02em; color:var(--text); }
+    .nav-logo-text-accent { color:var(--accent); }
     .nav-links { display:flex; align-items:center; gap:4px; flex:1; justify-content:center; }
-    .nav-links a { position:relative; display:inline-block; overflow:hidden; height:20px; font-size:14px; font-weight:500; color:#d1d5db; padding:0 12px; cursor:pointer; }
+    .nav-links a { position:relative; display:inline-block; overflow:hidden; height:20px; font-size:14px; font-weight:500; color:var(--text-2); padding:0 12px; cursor:pointer; }
     .nav-link-inner { display:flex; flex-direction:column; transition:transform 0.35s cubic-bezier(0.22,1,0.36,1); }
     .nav-links a:hover .nav-link-inner { transform:translateY(-50%); }
     .nav-link-inner span { display:block; height:20px; line-height:20px; }
-    .nav-link-inner span:first-child { color:#d1d5db; }
-    .nav-link-inner span:last-child { color:#fff; }
+    .nav-link-inner span:first-child { color:var(--text-2); }
+    .nav-link-inner span:last-child { color:var(--accent); }
     .nav-right { display:flex; align-items:center; gap:8px; flex-shrink:0; }
-    .nav-btn-ghost { font-size:13px; font-weight:500; color:#d1d5db; padding:7px 16px; border:1px solid #333; border-radius:9999px; background:rgba(31,31,31,0.62); transition:border-color 0.2s,color 0.2s; cursor:pointer; white-space:nowrap; }
-    .nav-btn-ghost:hover { border-color:rgba(255,255,255,0.5); color:#fff; }
+    .nav-btn-ghost { font-size:13px; font-weight:500; color:var(--text-2); padding:7px 16px; border:1px solid var(--border-2); border-radius:var(--r-pill); background:transparent; transition:border-color 0.2s,color 0.2s; cursor:pointer; white-space:nowrap; }
+    .nav-btn-ghost:hover { border-color:var(--accent); color:var(--accent); }
     .nav-btn-primary-wrap { position:relative; }
-    .nav-btn-primary-glow { position:absolute; inset:0; margin:-8px; border-radius:9999px; background:#e5e7eb; opacity:0.35; filter:blur(12px); transition:opacity 0.3s,margin 0.3s,filter 0.3s; pointer-events:none; }
-    .nav-btn-primary-wrap:hover .nav-btn-primary-glow { opacity:0.55; margin:-12px; filter:blur(18px); }
-    .nav-btn-primary { position:relative; z-index:1; font-size:13px; font-weight:700; color:#111; background:linear-gradient(145deg,#f3f4f6,#d1d5db); padding:7px 16px; border-radius:9999px; transition:background 0.2s; cursor:pointer; white-space:nowrap; }
-    .nav-btn-primary:hover { background:linear-gradient(145deg,#e5e7eb,#9ca3af); }
+    .nav-btn-primary-glow { position:absolute; inset:0; margin:-8px; border-radius:var(--r-pill); background:var(--accent); opacity:0.15; filter:blur(12px); transition:opacity 0.3s,margin 0.3s; pointer-events:none; }
+    .nav-btn-primary-wrap:hover .nav-btn-primary-glow { opacity:0.30; margin:-12px; }
+    .nav-btn-primary { position:relative; z-index:1; font-size:13px; font-weight:700; color:#fff; background:var(--accent); padding:7px 16px; border-radius:var(--r-pill); transition:background 0.2s; cursor:pointer; white-space:nowrap; }
+    .nav-btn-primary:hover { background:var(--gold); }
     .nav-hamburger { display:none; align-items:center; justify-content:center; width:32px; height:32px; color:#d1d5db; background:none; border:none; cursor:pointer; }
     .nav-hamburger:hover { color:#fff; }
     .nav-mobile { display:none; flex-direction:column; align-items:center; width:100%; overflow:hidden; max-height:0; opacity:0; padding-top:0; transition:max-height 0.3s ease,opacity 0.3s ease,padding-top 0.3s ease; pointer-events:none; }
@@ -71,7 +74,7 @@
     .nav-mobile-links a { font-size:15px; color:#d1d5db; text-align:center; width:100%; cursor:pointer; transition:color 0.2s; }
     .nav-mobile-links a:hover { color:#fff; }
     .nav-mobile-btns { display:flex; flex-direction:column; align-items:center; gap:12px; margin-top:16px; width:100%; }
-    @media(max-width:640px){ .nav-links,.nav-right{display:none;} .nav-hamburger{display:flex;} .nav-mobile{display:flex;} }
+    @media(max-width:640px){ .nav{ position:fixed; top:16px; left:50%; transform:translateX(-50%); width:calc(100% - 2rem); max-width:480px; background:rgba(26,26,26,0.90); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid #333; border-radius:9999px; padding:10px 20px; align-items:center; box-shadow:none; } .nav.menu-open{border-radius:20px;} .nav-inner{max-width:none;margin:0;padding:0;height:auto;} .nav-logo-icon{display:flex;} .nav-logo-text{display:none;} .nav-links,.nav-right{display:none;} .nav-hamburger{display:flex;} .nav-mobile{display:flex;} }
 
     /* ── BREADCRUMB ── */
     .breadcrumb { max-width:1280px; margin:0 auto; padding:var(--sp-16) var(--sp-32); display:flex; align-items:center; gap:var(--sp-8); font-size:13px; color:var(--text-3); }
@@ -89,7 +92,7 @@
     @media(max-width:960px){ .sidebar{position:static;} }
 
     .filter-block { background:var(--surface-2); border:1px solid var(--border); border-radius:var(--r-lg); padding:var(--sp-24); margin-bottom:var(--sp-16); }
-    .filter-title { font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-2); margin-bottom:var(--sp-16); display:flex; align-items:center; justify-content:space-between; cursor:pointer; }
+    .filter-title { font-family:'IBM Plex Sans',sans-serif; font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-2); margin-bottom:var(--sp-16); display:flex; align-items:center; justify-content:space-between; cursor:pointer; }
     .filter-title svg { color:var(--text-3); transition:transform 0.2s; }
     .filter-title.open svg { transform:rotate(180deg); }
 
@@ -157,9 +160,9 @@
     .badge-top  { background:rgba(28,26,22,0.7); color:#fff; backdrop-filter:blur(4px); }
     .prod-info { padding:var(--sp-16); }
     .prod-brand { font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-3); margin-bottom:var(--sp-4); }
-    .prod-name { font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:var(--text); margin-bottom:var(--sp-8); line-height:1.3; }
+    .prod-name { font-family:'IBM Plex Sans',sans-serif; font-size:15px; font-weight:600; color:var(--text); margin-bottom:var(--sp-8); line-height:1.3; }
     .prod-meta { display:flex; align-items:center; justify-content:space-between; gap:var(--sp-8); }
-    .prod-price { font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:700; color:var(--text); }
+    .prod-price { font-family:'IBM Plex Sans',sans-serif; font-size:16px; font-weight:700; color:var(--text); }
     .prod-price-old { font-size:12px; color:var(--text-3); text-decoration:line-through; }
     .prod-colors { display:flex; gap:var(--sp-4); }
     .prod-color-dot { width:12px; height:12px; border-radius:50%; border:1px solid rgba(0,0,0,0.1); }
@@ -178,7 +181,7 @@
 
     /* ── FOOTER (slim) ── */
     .footer-slim { background:var(--surface-2); border-top:1px solid var(--border); padding:var(--sp-32); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--sp-16); max-width:100%; }
-    .footer-slim-logo { font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:700; }
+    .footer-slim-logo { font-family:'IBM Plex Sans',sans-serif; font-size:18px; font-weight:700; }
     .footer-slim-logo span { color:var(--accent); }
     .footer-slim-links { display:flex; gap:var(--sp-24); flex-wrap:wrap; }
     .footer-slim-links a { font-size:13px; color:var(--text-3); transition:color 0.2s; }
@@ -192,11 +195,14 @@
 
   <nav class="nav" id="nav">
     <div class="nav-inner">
-      <a href="index.html" class="nav-logo" aria-label="tex-hub Home">
-        <span class="nav-logo-dot"></span>
-        <span class="nav-logo-dot"></span>
-        <span class="nav-logo-dot"></span>
-        <span class="nav-logo-dot"></span>
+      <a href="index.html" class="nav-logo" aria-label="Tex-Hub">
+        <span class="nav-logo-icon">
+          <span class="nav-logo-dot"></span>
+          <span class="nav-logo-dot"></span>
+          <span class="nav-logo-dot"></span>
+          <span class="nav-logo-dot"></span>
+        </span>
+        <span class="nav-logo-text">Tex-Hub<span class="nav-logo-text-accent">.pro</span></span>
       </a>
       <div class="nav-links">
         <a href="shop.html"><div class="nav-link-inner"><span>Shop</span><span>Shop</span></div></a>
@@ -543,8 +549,8 @@
   </footer>
 
   <script>
-    // Nav scroll shadow
     const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => { nav && nav.classList.toggle('scrolled', window.scrollY > 10); }, { passive: true });
     const navHamburger = document.getElementById('navHamburger');
     const navMobile = document.getElementById('navMobile');
     const iconMenu = document.getElementById('iconMenu');
